@@ -5,12 +5,8 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="styles.css">
-        <script src="dashboard.js"></script>
-        <script src="habit.js"></script>
-        <script src="notes.js"></script>
-        <script src="rdv.js"></script>
-        <script src="main.js"></script>
+        <link rel="stylesheet" href="css/styles.css"
+        <script type="module"src="/backend/main.js"></script>
         <title>Sunset</title>
     </head>
 
@@ -25,9 +21,9 @@
             <button>Tableau de Bord</button>
         </div>
         <div class="onglets">
-            <button>Notes</button>
-            <button>Habitudes</button>
-            <button>Rendez-vous</button>
+            <button onclick="show_tab('Notes')">Notes</button>
+            <button onclick="show_tab('Habits')">Habitudes</button>
+            <button onclick="show_tab('Rendez-vous')"">Rendez-vous</button>
         </div>
 
     </section>
@@ -35,17 +31,26 @@
     <main>
         <h3>Tableau de Bord</h3>
         <section>   
-        <div class="mid_header">
-            <h4>Habitudes en cours</h4>
-        </div>
-        <div class="little_header">
-            <p>Habits actives</p>
-            <p>Completion semaine</p>
-            <p>Evolution vs semaine passée</p>
-        </div>
-
-
+            <div class="mid_header">
+                <h4>Habitudes en cours</h4>
+            </div>
+            <div class="little_header">
+                <p>Habits actives</p>
+                <p>Completion semaine</p>
+                <p>Evolution vs semaine passée</p>
+            </div>
         </section>
+        <section> 
+            <div class="mid_header">
+                <h4>RDV cette semaine</h4>
+            </div>
+        </section>
+        <section> 
+            <div class="mid_header">
+                <h4>Dernières notes</h4>
+            </div>
+        </section>
+
 
 
 
