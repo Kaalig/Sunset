@@ -2,6 +2,9 @@
 
 /* pour centrer des objets */
 
+body {
+    background-color:#040405;
+}
 
 .center {
     display: flex;
@@ -9,13 +12,56 @@
     align-items: center;
 }
 
-.mid_header{
-    
+
+#sunset{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+    font-size: 24px;
 }
-.onglets{
+
+#date-display{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-transform: capitalize;
+    color: #ffffff;
+    font-size: 18px;
+    margin-top: 3px;
+}
+
+#citation{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #a29bfe;
+    font-style: italic;
+    font-size: 22px;
+    margin-top: 5px;
+}
+
+
+.container_principal {
+}
+
+.mid_header{
+    color:#ffffff;
+    font-size: 18px;
+}
+
+.little_header{
+    color:#ffffff;
+    font-size: 16px;
 
 }
+.onglets{
+    gap: 10px;
+}
 .first_onglet{
+     color:#ffffff;
+    font-size: 18px;
+    margin-bottom: 10px;
 
 }
 /* Style des objets globaux */

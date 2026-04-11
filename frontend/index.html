@@ -5,48 +5,55 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="css/styles.css"
-        <script type="module"src="/backend/main.js"></script>
+        <link rel="stylesheet" href="css/styles.css">
         <title>Sunset</title>
     </head>
 
 <body>
     <section>
-        <h1>Sunset</h1>
-        <p>Citation will go here</p>
-        <p>Date actuelle (JJ/MM/YYYY HH:MM)</p>
+         <div id="sunset">  
+            <h1>Sunset</h1>
+         </div>
+         <div class="citation center"> 
+            <p id="citation"></p>
+        </div>
+        <div class="date-display center">
+            <p id="date-display"></p>
+        </div>
     </section>
     <section>
-        <div class="first_onglet">
-            <button>Tableau de Bord</button>
+        <div class="first_onglet center">
+            <button id="btn-dashboard">Tableau de Bord</button>
         </div>
-        <div class="onglets">
-            <button onclick="show_tab('Notes')">Notes</button>
-            <button onclick="show_tab('Habits')">Habitudes</button>
-            <button onclick="show_tab('Rendez-vous')"">Rendez-vous</button>
+        <div class="onglets center">
+            <button id="btn-notes">Notes</button>
+            <button id="btn-habits">Habitudes</button>
+            <button id="btn-rdv">Rendez-vous</button>
         </div>
 
     </section>
 
     <main>
-        <h3>Tableau de Bord</h3>
+        <div class="first_onglet center">
+            <h3>Tableau de Bord / Page d'accueil</h3>
+        </div>
         <section>   
-            <div class="mid_header">
+            <div class="mid_header center">
                 <h4>Habitudes en cours</h4>
             </div>
-            <div class="little_header">
+            <div class="little_header center">
                 <p>Habits actives</p>
                 <p>Completion semaine</p>
                 <p>Evolution vs semaine passée</p>
             </div>
         </section>
         <section> 
-            <div class="mid_header">
+            <div class="mid_header center">
                 <h4>RDV cette semaine</h4>
             </div>
         </section>
         <section> 
-            <div class="mid_header">
+            <div class="mid_header center">
                 <h4>Dernières notes</h4>
             </div>
         </section>
@@ -56,6 +63,8 @@
 
 
     </main>
+
+<script type="module" src="/backend/main.js"></script>
 </body>
 
 </html>
