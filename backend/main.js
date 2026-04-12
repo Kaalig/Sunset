@@ -15,13 +15,12 @@ dateElement.textContent = display;
 
 
    
-function show_tab(tabName){
-    document.querySelector("#Dashboard").style.display = "none";
-    document.querySelector("#Notes").style.display = "none";
-    document.querySelector("#Habits").style.display = "none";
-    document.querySelector("#Rendez-vous").style.display = "none";
-    document.querySelector(tabName).style.display = "block";
-  
+function showTab(tabId) {
+    const tabs = document.querySelectorAll('main > section');
+    tabs.forEach(function(tab) {
+        tab.style.display = 'none';
+    });
+    document.querySelector('#' + tabId).style.display = 'block';
 }
 
 // Buttons Dashboard
@@ -30,9 +29,10 @@ const btnHabits = document.querySelector('#btn-habits');
 const btnNotes = document.querySelector('#btn-notes');
 const btnRdv = document.querySelector('#btn-rdv');
 
-btnHabits.addEventListener('click', () => show_tab('Habits'));
-btnNotes.addEventListener('click', () => show_tab('Notes'));
-btnRdv.addEventListener('click', () => show_tab('Rendez-vous'));
+btnDashboard.addEventListener('click', () => showTab('dashboard'));
+btnHabits.addEventListener('click', () => show_tab('habits'));
+btnNotes.addEventListener('click', () => show_tab('notes'));
+btnRdv.addEventListener('click', () => show_tab('rendez-vous'));
 
 
 // citations
