@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify, request
 
 app = Flask(__name__)
 
@@ -7,39 +7,18 @@ def index():
     return render_template('index.html')  # Jinja2 génère le HTML
 
 
-@app.route('/habits')
-def task():
-    return render_template('habits.html')
-
-def add_task():
+@app.route('/api/habits', methods=['GET','POST'])
+def api_habit():
     pass
-def edit_task():
+    return jsonify({'message': 'TODO'}), 200
+
+
+@app.route('/api/notes', methods=['GET','POST'])
+def api_notes():
     pass
-def delete_task():
+    return jsonify({'message': 'TODO'}), 200
+
+@app.route('/api/rdv', methods=['GET','POST'])
+def api_rdv():
     pass
-
-
-
-@app.route('/notes')
-def notes():
-    return render_template('notes.html')
-
-def add_note():
-    pass
-
-def edit_note():
-    pass
-def delete_note():
-    pass
-@app.route('/add_habit', methods=['POST'])
-def add_habit():
-    return render_template('add_habit.html')
-
-
-@app.route('/rdvr')
-def tracker():
-    return render_template('tracker.html')
-
-@app.route('/appointments')
-def appointments():
-    return render_template('appointments.html')
+    return jsonify({'message': 'TODO'}), 200
