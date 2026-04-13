@@ -40,13 +40,14 @@ main {
 }
 
 #citation{
-    display: flex;
-    justify-content: center;
-    align-items: center;
     color: #a29bfe;
     font-style: italic;
     font-size: 22px;
     margin-top: 5px;
+}
+
+#page-content {
+
 }
 
 .calendar {
@@ -58,9 +59,9 @@ main {
 .card {
     background: #1c1c24;
     border-radius: 12px;
-    border-left: 3px solid #6c5ce7;
     padding: 20px 30px;
     margin-bottom: 15px;
+    color: #6302d9;
 }
 
 .container_principal {

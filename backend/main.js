@@ -13,8 +13,19 @@ const display = full_date + ' ' + time;
 const dateElement = document.querySelector('#date-display');
 dateElement.textContent = display;
 
+// Buttons Dashboard
+const btnDashboard = document.querySelector('#btn-dashboard');
+const btnHabits = document.querySelector('#btn-habits');
+const btnNotes = document.querySelector('#btn-notes');
+const btnRdv = document.querySelector('#btn-rdv');
+
+btnDashboard.addEventListener('click', () => showTab('dashboard'));
+btnHabits.addEventListener('click', () => showTab('habits'));
+btnNotes.addEventListener('click', () => showTab('notes'));
+btnRdv.addEventListener('click', () => showTab('rendez-vous'));
 
    
+// Id TAB
 function showTab(tabId) {
     const tabs = document.querySelectorAll('main > section');
     tabs.forEach(function(tab) {
@@ -23,16 +34,14 @@ function showTab(tabId) {
     document.querySelector('#' + tabId).style.display = 'block';
 }
 
-// Buttons Dashboard
-const btnDashboard = document.querySelector('#btn-dashboard');
-const btnHabits = document.querySelector('#btn-habits');
-const btnNotes = document.querySelector('#btn-notes');
-const btnRdv = document.querySelector('#btn-rdv');
+const titles = {
+    'dashboard': "Tableau de Bord / Page d'accueil",
+    'habits': 'Habitudes',
+    'notes': 'Notes',
+    'rendez-vous': 'Rendez-vous'
+}
 
-btnDashboard.addEventListener('click', () => showTab('dashboard'));
-btnHabits.addEventListener('click', () => show_tab('habits'));
-btnNotes.addEventListener('click', () => show_tab('notes'));
-btnRdv.addEventListener('click', () => show_tab('rendez-vous'));
+document.querySelector('#page-title').textContent = titles[tabId];
 
 
 // citations
