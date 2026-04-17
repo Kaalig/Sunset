@@ -1,9 +1,9 @@
 import sqlite3
 
-conn = sqlite3.connect('sunset.db') -- conn = connection
+conn = sqlite3.connect('sunset.db')  # conn = connection
 cursor = conn.cursor()
 
--- Creating all the main tables
+# Creating all the main tables
 cursor.execute('''
     CREATE TABLE IF NOT EXISTS habits (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -34,17 +34,20 @@ cursor.execute('''
         )
 ''')
 
--- Plus tard : Changer le end_date en supprimant le 'NOT NULL' et rajouter un truc sympa pour pas niquer le calendrier si c'est un truc à faire sans horaire de fin
+# TODO Plus tard : Changer le end_date en supprimant le 'NOT NULL' et rajouter un truc sympa pour pas niquer le calendrier si c'est un truc à faire sans horaire de fin
 cursor.execute('''
     CREATE TABLE IF NOT EXISTS rendez_vous (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         title TEXT NOT NULL,
         start_date TEXT NOT NULL,
         end_date TEXT NOT NULL,
+        iteration INTEGER DEFAULT 0,
+        iteration_frequency TEXT DEFAULT NULL,
         location TEXT,
         description TEXT,
         color TEXT DEFAULT '#6c5ce7',
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
         
 ''')
 

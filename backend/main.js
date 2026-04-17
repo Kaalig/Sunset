@@ -32,6 +32,7 @@ function showTab(tabId) {
         tab.style.display = 'none';
     });
     document.querySelector('#' + tabId).style.display = 'block';
+    document.querySelector('#page-title').textContent = titles[tabId];
 }
 
 // Titre des sections
@@ -41,9 +42,6 @@ const titles = {
     'notes': 'Notes',
     'rendez-vous': 'Rendez-vous'
 }
-
-document.querySelector('#page-title').textContent = titles[tabId];
-
 
 // citations
 

@@ -47,7 +47,7 @@ def api_notes_get_trash():
     return jsonify({'message': 'TODO'}), 200
 
 @app.route('/api/notes/<id>/restore', methods=['POST'])
-def api_notes_restore():
+def api_notes_restore(id):
     pass
     return jsonify({'message': 'TODO'}), 200
 

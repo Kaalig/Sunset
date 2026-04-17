@@ -1,9 +1,7 @@
 
-
-/* pour centrer des objets */
-
 body {
-    background-color:#040405;
+    background-color:#0a0a0f;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
 }
 
 main {
@@ -60,8 +58,9 @@ main {
     background: #1c1c24;
     border-radius: 12px;
     padding: 20px 30px;
-    margin-bottom: 15px;
     color: #6302d9;
+    margin: 20px;
+    
 }
 
 .container_principal {
@@ -83,6 +82,8 @@ main {
 }
 .onglets{
     gap: 10px;
+    font-weight: 600;
+    
 }
 .first_onglet{
      color:#ffffff;
