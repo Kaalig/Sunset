@@ -45,7 +45,7 @@ cursor.execute('''
         description TEXT,
         color TEXT DEFAULT '#6c5ce7',
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        )
+        
 ''')
 
 conn.commit()

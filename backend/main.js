@@ -34,6 +34,7 @@ function showTab(tabId) {
     document.querySelector('#' + tabId).style.display = 'block';
 }
 
+// Titre des sections
 const titles = {
     'dashboard': "Tableau de Bord / Page d'accueil",
     'habits': 'Habitudes',
