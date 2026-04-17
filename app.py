@@ -1,4 +1,5 @@
 from flask import Flask, render_template, jsonify, request
+import sqlite3
 
 app = Flask(__name__)
 
@@ -11,8 +12,12 @@ def index():
 
 @app.route('/api/habits', methods=['GET','POST'])
 def api_habit():
-    pass
-    return jsonify({'message': 'TODO'}), 200
+    conn = sqlite3.connect('sunset.db')
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM habits')
+    habits = cursor.fetchall()
+    conn.close()
+    return jsonify({'habits': habits}), 200
 
 @app.route('/api/habits/<id>', methods=['PUT','DELETE'])
 def api_habit_id(id):
