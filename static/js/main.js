@@ -1,3 +1,5 @@
+import { displayHabits } from "./habits.js";
+
 // Date - Time 
 
 const date = new Date();

@@ -1,4 +1,4 @@
-// <>
+// >
 
 <!DOCTYPE HTML>
 <html lang="fr-FR">
@@ -54,7 +54,31 @@
                 <h4>Dernières notes</h4>
             </div>
         </section>
-        <section id="habits" style="display: none;">     
+        
+        <section id="habits" style="display: none;">
+            <div class=""center>
+                <button id="btn-new-habits">+ New habit</button>
+            </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Habitude</th>
+                <th>Objectif</th>
+                <th>Lundi</th>
+                <th>Mardi</th>
+                <th>Mercredi</th>
+                <th>Jeudi</th>
+                <th>Vendredi</th>
+                <th>Samedi</th>
+                <th>Dimanche</th>
+                <th>Total</th>
+
+            </tr>
+        </thead>
+        <tbody id="habits-body">
+        </tbody>
+    </table>
+
         </section>
         <section id="notes" style="display: none;"></section>
         <section id="rendez-vous" style="display: none;"></section>
@@ -65,7 +89,7 @@
 
     </main>
 
-<script type="module" src="/backend/main.js"></script>
+<script type="module" src="static/js/main.js"></script>
 </body>
 
 </html>
