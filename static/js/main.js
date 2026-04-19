@@ -1,4 +1,5 @@
 import { displayHabits } from "./habits.js";
+import './notes.js';
 
 // Date - Time 
 

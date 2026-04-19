@@ -85,7 +85,7 @@ def api_notes():
         conn.row_factory = sqlite3.Row
         cursor = conn.cursor()
         cursor.execute('SELECT * FROM notes WHERE deleted_at IS NULL')
-        notes = [dict(row) for row in cursor.fetchone()]
+        notes = [dict(row) for row in cursor.fetchall()]
         conn.close()
         return notes
     else:

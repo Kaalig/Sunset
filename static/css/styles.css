@@ -67,7 +67,7 @@ main {
 }
 
 .card {
-    background: #14141b;
+    background: #12121a;
     border-radius: 12px;
     padding: 20px 30px;
     color: #6302d9;
@@ -75,8 +75,6 @@ main {
     border: #2d2d3a;
     
 }
-
-
 .mid_header{
     color:#ffffff;
     font-size: 18px;
@@ -211,8 +209,47 @@ td:nth-child(n+3):nth-child(-n+9) {
     background: transparent;
     border: 1px solid #3a3a4a;
 }
-/* Style des objets globaux */
 
+/* Notes Style */
+#notes-list {
+    max-width: 900px;
+    margin: 20px auto;
+    background: none;
+    padding: 0;
+    border: none;
+}
+
+.note-item {
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    background: #1c1c24;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.note-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.note-title {
+    font-weight: bold;
+    color: #ffffff;
+    font-size: 16px;
+}
+
+.note-date {
+    color: #888;
+    font-size: 13px;
+}
+
+.note-preview {
+    color: #888;
+    font-style: italic;
+    font-size: 14px;
+    margin-top: 8px;
+}
 button{
     background: #6c5ce7;
     color: white;
