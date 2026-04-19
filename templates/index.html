@@ -56,31 +56,55 @@
         </section>
         
         <section id="habits" style="display: none;">
-            <div class=""center>
+            <div class="center">
                 <button id="btn-new-habits">+ New habit</button>
+                <div id="modal-habit" style="display: none;">
+                <div class="modal-content">
+                    <h3>Nouvelle Habitude</h3>
+                    <label>Nom</label>
+                    <input type="text" id="habit-name" placeholder="Ex: Pompes, Lire 30min...">
+                    <label>Objectif (nombre)</label>
+                    <input type="number" id="habit-goal" value="7">
+                    <label>Description (optionnel)</label>
+                    <input type="text" id="habit-description" placeholder="Description...">
+                    <div class="modal-buttons">
+                        <button id="btn-cancel-habit">Annuler</button>
+                        <button id="btn-create-habit">Créer</button>
+                    </div>
+                </div>
+                </div>
             </div>
-    <table>
-        <thead>
-            <tr>
-                <th>Habitude</th>
-                <th>Objectif</th>
-                <th>Lundi</th>
-                <th>Mardi</th>
-                <th>Mercredi</th>
-                <th>Jeudi</th>
-                <th>Vendredi</th>
-                <th>Samedi</th>
-                <th>Dimanche</th>
-                <th>Total</th>
 
-            </tr>
-        </thead>
-        <tbody id="habits-body">
-        </tbody>
-    </table>
-
+            <div class="card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Habitude</th>
+                            <th>Objectif</th>
+                            <th>Lun</th>
+                            <th>Mar</th>
+                            <th>Mer</th>
+                            <th>Jeu</th>
+                            <th>Ven</th>
+                            <th>Sam</th>
+                            <th>Dim</th>
+                            <th class="total">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody id="habits-body">
+                    </tbody>
+                </table>
+            </div>
         </section>
-        <section id="notes" style="display: none;"></section>
+
+        <section id="notes" style="display: none;">
+            <div class="center">
+                <button id="btn-new-note">+ New Note</button>
+                <button id="corbeille">Corbeille</button>
+
+            </div>
+            <div class="card" id="notes-list"></div>
+        </section>
         <section id="rendez-vous" style="display: none;"></section>
 
 

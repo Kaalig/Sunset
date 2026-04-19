@@ -44,12 +44,22 @@ main {
     margin-top: 5px;
 }
 
-#page-content {
 
+#btn-new-habits {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 
+#habits .card {
+    max-width: 900px;
+    margin: 20px auto;
+}
 
+#habits .center {
+    margin-bottom: 15px;
+}
 .calendar {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
@@ -57,16 +67,15 @@ main {
 }
 
 .card {
-    background: #1c1c24;
+    background: #14141b;
     border-radius: 12px;
     padding: 20px 30px;
     color: #6302d9;
     margin: 20px;
+    border: #2d2d3a;
     
 }
 
-.container_principal {
-}
 
 .mid_header{
     color:#ffffff;
@@ -92,6 +101,115 @@ main {
     font-size: 18px;
     margin-bottom: 10px;
 
+}
+
+/* Habits Table Style */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    color: #ffffff;
+}
+
+th, td {
+    padding: 12px 16px;
+    text-align: center;
+}
+
+th {
+    color: #383731;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+td {
+    font-size: 16px;
+}
+
+tbody tr {
+    border-bottom: 1px solid #2d2d3a;
+}
+thead tr {
+    border-bottom: 1px solid #2d2d3a;
+}
+th:nth-child(n+3):nth-child(-n+9),
+td:nth-child(n+3):nth-child(-n+9) {
+    width: 50px;
+}
+.total {
+    color: #ebcf34;
+}
+/* CIRCLES HABITUDES */
+.circle {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.check {
+    border: 2px solid #2ecc71;
+    color: #2ecc71;
+}
+
+.uncheck {
+    border: 2px solid #e74c3c;
+    color: #e74c3c;
+}
+
+/* Modal Style */
+
+#modal-habit {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.modal-content {
+    background: #1c1c24;
+    border-radius: 12px;
+    padding: 30px;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    color: #ffffff;
+}
+
+.modal-content label {
+    font-size: 13px;
+    color: #888;
+}
+
+.modal-content input {
+    background: #2a2a35;
+    border: 1px solid #3a3a4a;
+    border-radius: 6px;
+    padding: 10px;
+    color: #ffffff;
+    font-size: 14px;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+#btn-cancel-habit {
+    background: transparent;
+    border: 1px solid #3a3a4a;
 }
 /* Style des objets globaux */
 
