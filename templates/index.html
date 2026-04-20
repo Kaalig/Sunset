@@ -113,6 +113,29 @@
             </div>
             <div class="card" id="notes-list">
             </div>
+                <div id="note-detail" style="display: none;">
+                    <button id="btn-back-notes">← Retour</button>
+                    <div class="note-detail-card">
+                        <div class="note-detail-header">
+                            <input type="text" id="note-detail-title" data-placeholder="Titre...">
+                            <div class="note-toolbar">
+                                <input type="color" id="btn-color" class="toolbar-color" value="#ffffff">
+                                <select id="btn-fontsize" class="toolbar-select">
+                                    <option value="3">14px</option>
+                                    <option value="4">16px</option>
+                                    <option value="5">18px</option>
+                                    <option value="6">24px</option>
+                                    <option value="7">32px</option>
+                                </select>
+                                <button class="toolbar-btn" id="btn-bold">B</button>
+                                <button class="toolbar-btn" id="btn-italic"><i>I</i></button>
+                            </div>
+                        </div>
+                        
+                        <div contenteditable="true" id="note-detail-content" placeholder="Écris ici..."></div>
+                        <p id="note-detail-dates"></p>
+                    </div>
+                </div>
         </section>
         <section id="rendez-vous" style="display: none;"></section>
 
