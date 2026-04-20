@@ -41,3 +41,17 @@ export async function getNotes() {
     const response = await fetch('/api/notes');
     return await response.json();
 }
+
+export async function getNote(id){
+    const response = await fetch(`/api/notes/${id}`);
+    return await response.json();
+}
+
+export async function updateNotes(id, data) {
+    const response = await fetch(`/api/notes/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    });
+    return await response.json();
+}   

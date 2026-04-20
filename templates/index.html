@@ -1,5 +1,3 @@
-// >
-
 <!DOCTYPE HTML>
 <html lang="fr-FR">
     <head>
@@ -101,6 +99,17 @@
             <div class="center">
                 <button id="btn-new-note">+ New Note</button>
                 <button id="corbeille">Corbeille</button>
+                <div id="modal-note" style="display: none;">
+                <div class="modal-content">
+                    <h3>Nouvelle Note</h3>
+                    <label>Titre</label>
+                    <input type="text" id="note-title" placeholder="Titre de la note...">
+                    <div class="modal-buttons">
+                        <button id="btn-cancel-note">Annuler</button>
+                        <button id="btn-create-note">Créer</button>
+                    </div>
+                </div>
+                </div>
             </div>
             <div class="card" id="notes-list">
             </div>
