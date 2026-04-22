@@ -57,10 +57,3 @@ const citation = [
 const random = citation[Math.floor(Math.random() * citation.length)];
 const quoteElement = document.querySelector('#citation');
 quoteElement.textContent = random;
-
-
-// Tableau
-const tr = document.createElement('tr');
-const td = document.createElement('td');
-td.textContent = "Musculation";
-tr.appendChild(td);

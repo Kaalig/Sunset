@@ -1,3 +1,4 @@
+/* ----------------------- PARAMETRES GLOBAUX ------------------------  */
 *, *::before, *::after {
     box-sizing: border-box;
 }
@@ -15,6 +16,8 @@ main {
     margin: 20px 80px;
     margin-top: 10px;
 }
+
+/* ----------------------- HEADER STYLE ------------------------  */
 
 .center {
     display: flex;
@@ -105,7 +108,7 @@ main {
 
 }
 
-/* Habits Table Style */
+/* ----------------------- HABITS TABLE STYLE ------------------------  */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -164,7 +167,7 @@ td:nth-child(n+3):nth-child(-n+9) {
     color: #e74c3c;
 }
 
-/* Modal Style */
+/* ----------------------- MODAL STYLE ------------------------  */
 
 #modal-habit {
     position: fixed;
@@ -229,7 +232,8 @@ td:nth-child(n+3):nth-child(-n+9) {
     border: 1px solid #3a3a4a;
 }
 
-/* Notes Style */
+/* ----------------------- NOTES STYLE ------------------------  */
+
 #notes-list {
     max-width: 900px;
     margin: 20px auto;

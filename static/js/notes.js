@@ -58,7 +58,7 @@ document.querySelector('#btn-cancel-note').addEventListener('click', () => {
 document.querySelector('#modal-note').style.display = 'none';
 });
 document.querySelector('#btn-create-note').addEventListener('click', async() => {
-    const title = document.querySelector('#note-title').innerHTML;
+    const title = document.querySelector('#note-title').value;
     if (!title) return; // Pour régler le pb de la note crée qui est vide.
     await createNote({ title: title});
     document.querySelector('#modal-note').style.display = 'none';
@@ -69,9 +69,9 @@ async function openNote(id) {
     const note = await getNote(id);
     currentNoteId = id;
     document.querySelector('#notes-list').style.display = 'none';
-    document.querySelector('.center').style.display = 'none';  // cache les boutons new/corbeille
+    document.querySelector('.center').style.display = 'none';  // ? cache les boutons new/corbeille mais je dois le changer apparemment
     document.querySelector('#note-detail').style.display = 'block';
-    document.querySelector('#note-title').innerHTML = note.title;
+    document.querySelector('#note-detail-title').value = note.title;
     document.querySelector('#note-detail-content').innerHTML = note.content || '';
     document.querySelector('#note-detail-dates').textContent = `Créé le ${note.created_at} · Dernière édition ${note.edited_at}`;
     document.querySelector('#btn-new-note').style.display = 'none';
@@ -80,7 +80,7 @@ async function openNote(id) {
 }
 
 document.querySelector('#btn-back-notes').addEventListener('click', async () => {
-    const title = document.querySelector('#note-detail-title').innerHTML;
+    const title = document.querySelector('#note-detail-title').value;
     const content = document.querySelector('#note-detail-content').innerHTML;
     if (currentNoteId) {
         await updateNotes(currentNoteId, { title: title, content: content });
