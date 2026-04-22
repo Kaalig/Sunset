@@ -100,7 +100,7 @@ def api_notes():
         data = request.get_json()
         conn = sqlite3.connect('sunset.db')
         cursor = conn.cursor()
-        cursor.execute('INSERT INTO notes (title, content) VALUES (?, ?)', (data['title'], data.get('content', None)))
+        cursor.execute('INSERT INTO notes (title, content) VALUES (?, ?)', (data.get('quote', None), data.get('content', None)))
         conn.commit()
         conn.close()
         return jsonify({'message': 'Bien reçu'}), 200
@@ -127,7 +127,7 @@ def api_notes_id(id):
         if not note:
             conn.close()
             return jsonify({'message': 'Note non trouvé'}), 404
-        cursor.execute('UPDATE notes SET title=?, content=?, edited_at=CURRENT_TIMESTAMP WHERE id=? AND deleted_at IS NULL', (data['title'], data.get('content', None), id))
+        cursor.execute('UPDATE notes SET title=?, content=?, edited_at=CURRENT_TIMESTAMP WHERE id=? AND deleted_at IS NULL', (data.get('title', note['title']), data.get('content', note['content']), id))
         conn.commit()
         conn.close()
         return jsonify({'message': 'Bien mis à jour'}), 200
@@ -233,7 +233,7 @@ def api_quotes():
         data = request.get_json()
         conn = sqlite3.connect('sunset.db')
         cursor = conn.cursor()
-        cursor.execute('INSERT INTO quotes (content) VALUES (?)', (data['content']))
+        cursor.execute('INSERT INTO quotes (quote) VALUES (?)', (data['quote'],))
         conn.commit()
         conn.close()
         return jsonify({'message': 'Citation bien ajoutée'}), 200
@@ -257,9 +257,8 @@ def api_quotes_id(id):
         cursor = conn.cursor()
         cursor.execute('DELETE FROM quotes WHERE id=?', (id,))
         conn.commit()
-    conn.close()
-
-    return jsonify({'message': 'Citation bien supprimée'}), 200
+        conn.close()
+        return jsonify({'message': 'Citation bien supprimée'}), 200
 
 
 
