@@ -59,6 +59,7 @@ document.querySelector('#modal-note').style.display = 'flex';
 
 document.querySelector('#btn-cancel-note').addEventListener('click', () => {
 document.querySelector('#modal-note').style.display = 'none';
+document.querySelector('#note-title').value = '';
 });
 document.querySelector('#btn-create-note').addEventListener('click', async() => {
     const title = document.querySelector('#note-title').value;
