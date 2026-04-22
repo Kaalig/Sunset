@@ -92,7 +92,7 @@ def api_notes():
         conn = sqlite3.connect('sunset.db')
         conn.row_factory = sqlite3.Row
         cursor = conn.cursor()
-        cursor.execute('SELECT * FROM notes WHERE deleted_at IS NULL')
+        cursor.execute('SELECT * FROM notes WHERE deleted_at IS NULL ORDER BY edited_at DESC')
         notes = [dict(row) for row in cursor.fetchall()]
         conn.close()
         return notes
@@ -100,7 +100,7 @@ def api_notes():
         data = request.get_json()
         conn = sqlite3.connect('sunset.db')
         cursor = conn.cursor()
-        cursor.execute('INSERT INTO notes (title, content) VALUES (?, ?)', (data.get('quote', None), data.get('content', None)))
+        cursor.execute('INSERT INTO notes (title, content) VALUES (?, ?)', (data.get('title', None), data.get('content', None)))
         conn.commit()
         conn.close()
         return jsonify({'message': 'Bien reçu'}), 200
@@ -121,6 +121,7 @@ def api_notes_id(id):
     elif request.method == 'PUT':
         data = request.get_json()
         conn = sqlite3.connect('sunset.db')
+        conn.row_factory = sqlite3.Row
         cursor = conn.cursor()
         cursor.execute('SELECT * FROM notes WHERE id=? AND deleted_at IS NULL', (id,))
         note = cursor.fetchone()
@@ -165,7 +166,7 @@ def api_notes_restore(id):
     cursor.execute('UPDATE notes SET deleted_at=NULL WHERE id=?', (id,))
     conn.commit()
     conn.close()
-    return jsonify({'message': 'Bien restauré'}), 200
+    return jsonify({'message': 'Note bien restaurée'}), 200
 
 # --------------- RENDEZ-VOUS ------------------
 
@@ -198,7 +199,7 @@ def api_rdv_id(id):
         row = cursor.fetchone()
         conn.close()
         if not row:
-            return jsonify({'message': 'RDV non trouvé'}), 404
+            return jsonify({'message': 'Rendez-vous non trouvé'}), 404
         rdv = dict(row)
         return rdv
     elif request.method == 'PUT':
@@ -215,7 +216,7 @@ def api_rdv_id(id):
         cursor.execute('DELETE FROM rendez_vous WHERE id=?', (id,))
         conn.commit()
         conn.close()
-        return jsonify({'message': 'RDV supprimé'}), 200
+        return jsonify({'message': 'Rendez-vous supprimé'}), 200
     
 
 # --------------- CITATIONS ------------------

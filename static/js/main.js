@@ -1,5 +1,5 @@
 import { displayHabits } from "./habits.js";
-import './notes.js';
+import { displayNotes } from './notes.js';
 
 // Date - Time 
 
@@ -33,6 +33,9 @@ function showTab(tabId) {
     const tabs = document.querySelectorAll('main > section');
     tabs.forEach(function(tab) {
         tab.style.display = 'none';
+        if (tabId === 'notes') {
+            displayNotes();
+        }
     });
     document.querySelector('#' + tabId).style.display = 'block';
     document.querySelector('#page-title').textContent = titles[tabId];

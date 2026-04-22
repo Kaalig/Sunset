@@ -24,7 +24,8 @@ export async function displayNotes() {
         const noteDelete = document.createElement('button');
         noteDelete.className = 'btn-delete-note';
         noteDelete.textContent = '🗑';
-        noteDelete.addEventListener('click', async() => {
+        noteDelete.addEventListener('click', async(e) => {
+            e.stopPropagation();
             await deleteNote(note.id);
             await displayNotes();
         });
@@ -40,8 +41,10 @@ export async function displayNotes() {
 
         const notePreview = document.createElement('p');
         notePreview.className = 'note-preview';
-        notePreview.textContent = note.content ? note.content.substring(0, 100) + '...' : ''; // If/else sur une ligne
-
+        const temp = document.createElement('div'); // Div invisible dans le but de pas voir les balises dans le preview (HTML interprète la div donc ca reprend pas les balises de style)
+        temp.innerHTML = note.content || ''; 
+        notePreview.textContent = temp.textContent ? temp.textContent.substring(0, 80) + '...' : '';
+    
         noteDiv.appendChild(noteHeader);
         noteDiv.appendChild(notePreview);
         notesList.appendChild(noteDiv);
@@ -62,6 +65,7 @@ document.querySelector('#btn-create-note').addEventListener('click', async() => 
     if (!title) return; // Pour régler le pb de la note crée qui est vide.
     await createNote({ title: title});
     document.querySelector('#modal-note').style.display = 'none';
+    document.querySelector('#note-title').value = ''; // Vider le champ pour pas que ca soit redondant
     await displayNotes();
 });
 let currentNoteId = null;
@@ -69,7 +73,7 @@ async function openNote(id) {
     const note = await getNote(id);
     currentNoteId = id;
     document.querySelector('#notes-list').style.display = 'none';
-    document.querySelector('.center').style.display = 'none';  // ? cache les boutons new/corbeille mais je dois le changer apparemment
+    document.querySelector('#notes-toolbar').style.display = 'none';  // ? cache les boutons new/corbeille mais je dois le changer apparemment
     document.querySelector('#note-detail').style.display = 'block';
     document.querySelector('#note-detail-title').value = note.title;
     document.querySelector('#note-detail-content').innerHTML = note.content || '';
@@ -88,6 +92,7 @@ document.querySelector('#btn-back-notes').addEventListener('click', async () => 
 
     currentNoteId = null;
     document.querySelector('#note-detail').style.display = 'none';
+    document.querySelector('#notes-toolbar').style.display = 'flex';
     document.querySelector('#notes-list').style.display = 'block';
     document.querySelector('.center').style.display = 'flex';
     document.querySelector('#btn-new-note').style.display = ''; // '' Pour pas forcer un style et utiliser le CSS en priorité
