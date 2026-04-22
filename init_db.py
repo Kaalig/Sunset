@@ -51,6 +51,13 @@ cursor.execute('''
         
 ''')
 
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS quotes (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        quote TEXT NOT NULL
+        )
+''')
+
 conn.commit()
 conn.close()
 print("Base de donnée normalement crée j'espère zebi")

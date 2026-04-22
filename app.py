@@ -33,14 +33,22 @@ def api_habit():
         conn.close()
         return jsonify({'message': 'Bien reçu'}), 200
 
-@app.route('/api/habits/<id>', methods=['PUT','DELETE'])
 # TODO : CHANGER LE PUT POUR NE PAS QUE SI ON SELECTIONNE QUE LE NAME  LA DESCRIPTION EST ECRASEE ET LE GOAL_DAYS REVIENT A 7
+# ? Je ne sais pas comment faire.
+
+@app.route('/api/habits/<id>', methods=['PUT','DELETE'])
 def api_habit_id(id):
     if request.method == 'PUT':
         data = request.get_json()
         conn = sqlite3.connect('sunset.db')
+        conn.row_factory = sqlite3.Row
         cursor = conn.cursor()
-        cursor.execute('UPDATE habits SET name=?, description=?, goal_days=? WHERE id=?', (data['name'], data.get('description', None), data.get('goal_days', 7), id))
+        cursor.execute('SELECT * FROM habits WHERE id=?', (id,))
+        habit = cursor.fetchone()
+        if not habit:
+            conn.close()
+            return jsonify({'message': 'Habitude non trouvé'}), 404
+        cursor.execute('UPDATE habits SET name=?, description=?, goal_days=? WHERE id=?', (data.get('name', habit['name']), data.get('description', habit['description']), data.get('goal_days', habit['goal_days']), id))
         conn.commit()
         conn.close()
         return jsonify({'message': 'Bien mis à jour'}), 200
@@ -50,7 +58,7 @@ def api_habit_id(id):
         cursor.execute('DELETE FROM habits WHERE id=?', (id,))
         conn.commit()
         conn.close()
-        return jsonify({'message': 'Bien supprimé'}), 200
+        return jsonify({'message': 'Habitude bien supprimé'}), 200
 
 @app.route('/api/habits/<id>/check', methods=['POST'])
 def api_habit_check(id):
@@ -97,7 +105,6 @@ def api_notes():
         conn.close()
         return jsonify({'message': 'Bien reçu'}), 200
 
-# TODO : mettre en place du code pour le cas où l'id existe pas — fetchone() renvoie None si rien n'est trouvé.
 @app.route('/api/notes/<id>', methods=['GET','PUT','DELETE'])
 def api_notes_id(id):
     if request.method == 'GET':
@@ -106,15 +113,20 @@ def api_notes_id(id):
         cursor = conn.cursor()
         cursor.execute('SELECT * FROM notes WHERE id=? AND deleted_at IS NULL', (id,))
         row = cursor.fetchone()
-        note= dict(row)
         conn.close()
         if not row:
             return jsonify({'message': 'Note non trouvé'}), 404
+        note = dict(row)
         return note
     elif request.method == 'PUT':
         data = request.get_json()
         conn = sqlite3.connect('sunset.db')
         cursor = conn.cursor()
+        cursor.execute('SELECT * FROM notes WHERE id=? AND deleted_at IS NULL', (id,))
+        note = cursor.fetchone()
+        if not note:
+            conn.close()
+            return jsonify({'message': 'Note non trouvé'}), 404
         cursor.execute('UPDATE notes SET title=?, content=?, edited_at=CURRENT_TIMESTAMP WHERE id=? AND deleted_at IS NULL', (data['title'], data.get('content', None), id))
         conn.commit()
         conn.close()
@@ -184,10 +196,10 @@ def api_rdv_id(id):
         cursor = conn.cursor()
         cursor.execute('SELECT * FROM rendez_vous WHERE id=?', (id,))
         row = cursor.fetchone()
-        rdv = dict(row)
         conn.close()
         if not row:
             return jsonify({'message': 'RDV non trouvé'}), 404
+        rdv = dict(row)
         return rdv
     elif request.method == 'PUT':
         data = request.get_json()
@@ -204,6 +216,52 @@ def api_rdv_id(id):
         conn.commit()
         conn.close()
         return jsonify({'message': 'RDV supprimé'}), 200
+    
+
+# --------------- CITATIONS ------------------
+@app.route('/api/quotes', methods=['GET','POST'])
+def api_quotes():
+    if request.method == 'GET':
+        conn = sqlite3.connect('sunset.db')
+        conn.row_factory = sqlite3.Row
+        cursor = conn.cursor()
+        cursor.execute('SELECT * FROM quotes')
+        quote = [dict(row) for row in cursor.fetchall()]
+        conn.close()
+        return quote
+    else:
+        data = request.get_json()
+        conn = sqlite3.connect('sunset.db')
+        cursor = conn.cursor()
+        cursor.execute('INSERT INTO quotes (content) VALUES (?)', (data['content']))
+        conn.commit()
+        conn.close()
+        return jsonify({'message': 'Citation bien ajoutée'}), 200
+
+
+@app.route('/api/quotes/<id>', methods=['GET','DELETE'])
+def api_quotes_id(id):
+    if request.method == 'GET':
+        conn = sqlite3.connect('sunset.db')
+        conn.row_factory = sqlite3.Row
+        cursor = conn.cursor()
+        cursor.execute('SELECT * FROM quotes WHERE id=?', (id,))
+        row = cursor.fetchone()
+        conn.close()
+        if not row:
+            return jsonify({'message': 'Citation non trouvée'}), 404
+        quote = dict(row)
+        return quote
+    else:
+        conn = sqlite3.connect('sunset.db')
+        cursor = conn.cursor()
+        cursor.execute('DELETE FROM quotes WHERE id=?', (id,))
+        conn.commit()
+    conn.close()
+
+    return jsonify({'message': 'Citation bien supprimée'}), 200
+
+
 
 # --------------- BACK UPS ------------------
 # TODO : A faire plus tard vers la fin

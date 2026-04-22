@@ -1,3 +1,6 @@
+
+// Habitudes 
+
 export async function getHabits() {
     const response = await fetch('/api/habits');
     return await response.json();
@@ -20,6 +23,8 @@ export async function createHabit(data) {
     });
     return await response.json();
 }
+
+// Notes 
 
 export async function createNote(data) {
     const response = await fetch('/api/notes', {
@@ -55,3 +60,25 @@ export async function updateNotes(id, data) {
     });
     return await response.json();
 }   
+
+// CITATIONS
+export async function getQuotes() {
+    const response = await fetch('/api/quotes');
+    return await response.json();
+}
+
+export async function createQuote(data) {
+    const response = await fetch('/api/quotes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    });
+    return await response.json();
+}
+
+export async function deleteQuote(id) {
+    const response = await fetch(`/api/quotes/${id}`, {
+        method: 'DELETE'
+    });
+    return await response.json();
+}
