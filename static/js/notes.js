@@ -64,17 +64,17 @@ document.querySelector('#note-title').value = '';
 document.querySelector('#btn-create-note').addEventListener('click', async() => {
     const title = document.querySelector('#note-title').value;
     if (!title) return; // Pour régler le pb de la note crée qui est vide.
-    await createNote({ title: title});
+    const response = await createNote({ title: title});
     document.querySelector('#modal-note').style.display = 'none';
     document.querySelector('#note-title').value = ''; // Vider le champ pour pas que ca soit redondant
-    await displayNotes();
+    await openNote(response.id);
 });
 let currentNoteId = null;
 async function openNote(id) {
     const note = await getNote(id);
     currentNoteId = id;
     document.querySelector('#notes-list').style.display = 'none';
-    document.querySelector('#notes-toolbar').style.display = 'none';  // ? cache les boutons new/corbeille mais je dois le changer apparemment
+    document.querySelector('#notes-toolbar').style.display = 'none';
     document.querySelector('#note-detail').style.display = 'block';
     document.querySelector('#note-detail-title').value = note.title;
     document.querySelector('#note-detail-content').innerHTML = note.content || '';
@@ -137,7 +137,7 @@ document.querySelector('#corbeille').addEventListener('click', async() => {
 
     if (trashedNotes.length === 0) {
         const noteDiv = document.createElement('div');
-        noteDiv.className = 'note-item';
+        noteDiv.className = 'note-item'; //TODO : Créer une autre classe parce qu'elle est aussi utilisée pour les preview de note.
         noteDiv.textContent = 'Aucune note dans la corbeille';
         notesList.appendChild(noteDiv);
     }

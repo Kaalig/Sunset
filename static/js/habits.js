@@ -1,4 +1,4 @@
-import { getHabits, checkHabit, createHabit } from "./api.js";
+import { getHabit, getHabits, checkHabit, createHabit, deleteHabit } from "./api.js";
 
 function getWeekDates() {
     const today = new Date();
@@ -27,6 +27,9 @@ export async function displayHabits() {
         const tdGoaldays = document.createElement('td');
 
         tdName.textContent = habit.name;
+        tdName.addEventListener('click', async() => {
+            await openHabit(habit.id);
+        })
         tdGoaldays.textContent = habit.goal_days;
         tr.appendChild(tdName);
         tr.appendChild(tdGoaldays);
@@ -77,12 +80,23 @@ document.querySelector('#btn-cancel-habit').addEventListener('click', () => {
     document.querySelector('#modal-habit').style.display = 'none';
 });
 
-document.querySelector('#btn-create-habit').addEventListener('click', async() => {
-    const name = document.querySelector('#habit-name').value;
-    const goal = document.querySelector('#habit-goal').value;
-    const description = document.querySelector('#habit-description').value;
-    await createHabit({ name: name, goal_days: goal, description: description });
-    document.querySelector('#modal-habit').style.display = 'none';
+let currentHabitId = null;
+async function openHabit(id) {
+    const habit = await getHabit(id);
+    currentHabitId = id;
+    document.querySelector('#modal-habit-detail').style.display = 'flex';
+    document.querySelector('#habit-detail-name').textContent = habit.name;
+    document.querySelector('#habit-detail-goal').textContent = habit.goal_days;
+    document.querySelector('#habit-detail-description').textContent = habit.description;
+}
+document.querySelector('#btn-close-habit-detail').addEventListener('click', () => {
+    document.querySelector('#modal-habit-detail').style.display = 'none';
+    currentHabitId = null;
+});
+document.querySelector('#btn-delete-habit').addEventListener('click', async() => {
+    await deleteHabit(currentHabitId);
+    document.querySelector('#modal-habit-detail').style.display = 'none';
+    currentHabitId = null;
     await displayHabits();
 })
 displayHabits();

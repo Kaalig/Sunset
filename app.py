@@ -36,8 +36,19 @@ def api_habit():
 # TODO : CHANGER LE PUT POUR NE PAS QUE SI ON SELECTIONNE QUE LE NAME  LA DESCRIPTION EST ECRASEE ET LE GOAL_DAYS REVIENT A 7
 # ? Je ne sais pas comment faire.
 
-@app.route('/api/habits/<id>', methods=['PUT','DELETE'])
+@app.route('/api/habits/<id>', methods=['GET','PUT','DELETE'])
 def api_habit_id(id):
+    if request.method == 'GET':
+        conn = sqlite3.connect('sunset.db')
+        conn.row_factory = sqlite3.Row
+        cursor = conn.cursor()
+        cursor.execute('SELECT * FROM habits WHERE id=?', (id,))
+        row = cursor.fetchone()
+        conn.close()
+        if not row:
+            return jsonify({'message': 'Habitude non trouvé'}), 404
+        habit = dict(row)
+        return habit
     if request.method == 'PUT':
         data = request.get_json()
         conn = sqlite3.connect('sunset.db')
@@ -103,7 +114,7 @@ def api_notes():
         cursor.execute('INSERT INTO notes (title, content) VALUES (?, ?)', (data.get('title', None), data.get('content', None)))
         conn.commit()
         conn.close()
-        return jsonify({'message': 'Bien reçu'}), 200
+        return jsonify({'message': 'Bien reçu','id': cursor.lastrowid}), 200
 
 @app.route('/api/notes/<id>', methods=['GET','PUT','DELETE'])
 def api_notes_id(id):
