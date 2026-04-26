@@ -459,12 +459,20 @@ td:nth-child(n+3):nth-child(-n+9) {
     position: relative;
     height: 1440px;
     border-left: 1px solid #1a1a24;
+     background-image: repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 59px,
+        #1a1a24 59px,
+        #1a1a24 60px
+    );
 }
 
 .calendar-day {
     font-size: 14px;
     padding: 8px 0;
     font-weight: bold;
+    white-space: pre-line;
 }
 
 .calendar-grid {

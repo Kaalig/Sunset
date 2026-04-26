@@ -6,6 +6,12 @@ export async function displayRdv() {
     const grid = document.querySelector('#calendar-grid');
     grid.innerHTML = '';
     const weekDates = getWeekDates();
+    const dayHeaders = document.querySelectorAll('.calendar-day');
+    const days = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
+    for (let i = 0; i < 7; i++) {
+        const day = weekDates[i].split('-')[2];
+        dayHeaders[i].textContent = days[i] + '\n' + day;
+    }
 
     const hourColumn = document.createElement('div');
     hourColumn.className = 'calendar-hour-column';
@@ -30,6 +36,7 @@ export async function displayRdv() {
         const rdvDate = rdv.start_date.split(' ')[0]; // YYYY-MM-DD
         const dayIndex = weekDates.indexOf(rdvDate);
         if (dayIndex === -1) continue; // pas cette semaine
+        if (!rdv.start_date.includes(' ') || !rdv.end_date.includes(' ')) continue;
 
         const startHour = parseInt(rdv.start_date.split(' ')[1].split(':')[0]);
         const startMin = parseInt(rdv.start_date.split(' ')[1].split(':')[1]);
