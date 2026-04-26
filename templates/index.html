@@ -155,26 +155,49 @@
          <div class="center">
             <button id="btn-new-rdv">+ New RDV</button>
                 <div id="modal-rdv" style="display: none;">
-                    <div id="modal-rdv-content">
+                    <div class="modal-content">
                         <h3>Nouveau RDV</h3>
-                        <label>Titre</label>
+                        <label class="calendar-modal-title">Titre</label>
                         <input type="text" id="rdv-title" placeholder="Titre du RDV">
+                        <label class="calendar-modal-title">Date de début du RDV</label>
                         <input type="date" id="rdv-start-date">
+                        <input type="time" id="rdv-end-time">
+                        <label class="calendar-modal-title">Date de fin du RDV</label>
                         <input type="date" id="rdv-end-date">
+                        <input type="time" id="rdv-start-time">
+                        <label class="calendar-modal-title">Lieu</label>
                         <input type="text" id="rdv-location">
-                        <input type="description" id="rdv-description">
-                        <input type="text" id="rdv-iteration"> 
+                        <label class="calendar-modal-title">Commentaires</label>
+                        <input type="text" id="rdv-description">
+                        <input type="color" id="rdv-color" value="#6c5ce7">
                         <div class="modal-buttons">
                             <button id="btn-cancel-rdv">Annuler</button>
                             <button id="btn-create-rdv">Créer</button>
                         </div>
-                </div>
-
                     </div>
 
+                </div>
+
+
+            </div>
+        <div class="card">
+            <div class="calendar-header">
+                <div></div>
+                <div class="calendar-day">Lun</div>
+                <div class="calendar-day">Mar</div>
+                <div class="calendar-day">Mer</div>
+                <div class="calendar-day">Jeu</div>
+                <div class="calendar-day">Ven</div>
+                <div class="calendar-day">Sam</div>
+                <div class="calendar-day">Dim</div>
+            </div>
+
+            <div class="calendar-grid" id="calendar-grid">
+                <div class="calendar-hour">
 
                 </div>
-         </div>
+            </div>
+        </div>
          </section>
 
 

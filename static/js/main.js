@@ -1,5 +1,6 @@
 import { displayHabits } from "./habits.js";
 import { displayNotes } from './notes.js';
+import { displayRdv } from "./rdv.js";
 
 // Date - Time 
 
@@ -36,6 +37,12 @@ function showTab(tabId) {
         if (tabId === 'notes') {
             displayNotes();
         }
+        else if (tabId === 'habits') {
+            displayHabits();
+        }
+        else if (tabId === 'rendez-vous') {
+            displayRdv();
+        }
     });
     document.querySelector('#' + tabId).style.display = 'block';
     document.querySelector('#page-title').textContent = titles[tabId];
@@ -49,7 +56,7 @@ const titles = {
     'rendez-vous': 'Rendez-vous'
 }
 
-// citations
+//TODO : citations à retirer quand je me serai occupé de la table quotes
 
 const citation = [
     "'Without love, the truth cannot be seen'",

@@ -1,6 +1,6 @@
 import { getHabit, getHabits, checkHabit, createHabit, deleteHabit, updateHabit } from "./api.js";
 
-function getWeekDates() {
+export function getWeekDates() {
     const today = new Date();
     const day = today.getDay();
     const monday = new Date(today); // Copie today

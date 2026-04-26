@@ -443,6 +443,93 @@ td:nth-child(n+3):nth-child(-n+9) {
     border-radius: 4px;
 }
 
+
+/* ----------------------- RENDEZ-VOUS STYLE ------------------------  */
+
+.calendar-header {
+    display: grid;
+    grid-template-columns: 60px repeat(7, 1fr);
+    text-align: center;
+    color: #98cf16;
+    padding: 10px 0;
+    border-bottom: 1px solid #2d2d3a;
+}
+
+.calendar-day-column {
+    position: relative;
+    height: 1440px;
+    border-left: 1px solid #1a1a24;
+}
+
+.calendar-day {
+    font-size: 14px;
+    padding: 8px 0;
+    font-weight: bold;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: 60px repeat(7, 1fr);
+}
+
+.calendar-hour {
+    color: #b4aa21;
+    font-size: 12px;
+    text-align: right;
+    padding-right: 10px;
+    height: 60px;
+    border-bottom: 1px solid #1a1a24;
+}
+
+.calendar-hour-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.calendar-cell {
+    height: 60px;
+    border-bottom: 1px solid #1a1a24;
+    border-left: 1px solid #1a1a24;
+    position: relative;
+}
+
+.calendar-rdv {
+    position: absolute;
+    left: 4px;
+    right: 4px;
+    border-radius: 4px;
+    padding: 4px 6px;
+    font-size: 12px;
+    color: #ffffff;
+    overflow: hidden;
+    cursor: pointer;
+    opacity: 0.9;
+    border-left: 3px solid rgba(255,255,255,0.3);
+}
+
+.calendar-modal-title {
+    color:#c0530a;
+    font-weight: 600;
+}
+#modal-rdv {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+#rendez-vous .center {
+    max-width: 900px;
+    margin: 0 auto;
+    overflow-y: auto;
+    max-height: 600px;
+}
 button{
     background: #6c5ce7;
     color: white;
