@@ -60,4 +60,4 @@ cursor.execute('''
 
 conn.commit()
 conn.close()
-print("Base de donnée normalement crée j'espère zebi")
+print("Base de donnée normalement créée zebi")

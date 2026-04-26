@@ -72,11 +72,14 @@
                 </div>
                 </div>
             </div>
-                <div id="modal-habit-detail" style="display: none;">
+            <div id="modal-habit-detail" style="display: none;">
                 <div class="modal-content">
-                    <h3 id="habit-detail-name"></h3>
-                    <p><strong>Objectif :</strong> <span id="habit-detail-goal"></span></p>
-                    <p><strong>Description :</strong> <span id="habit-detail-description"></span></p>
+                    <input type="text" id="habit-detail-name">
+                    <label>Objectif :</label>
+                    <input type="text" id="habit-detail-goal">
+                    <label>Description :</label>
+                    <input type="text" id="habit-detail-description">
+
                     <div class="modal-buttons">
                         <button id="btn-close-habit-detail">Fermer</button>
                         <button id="btn-delete-habit" style="background: #e74c3c;">Supprimer</button>
@@ -148,7 +151,31 @@
                     </div>
                 </div>
         </section>
-        <section id="rendez-vous" style="display: none;"></section>
+        <section id="rendez-vous" style="display: none;">
+         <div class="center">
+            <button id="btn-new-rdv">+ New RDV</button>
+                <div id="modal-rdv" style="display: none;">
+                    <div id="modal-rdv-content">
+                        <h3>Nouveau RDV</h3>
+                        <label>Titre</label>
+                        <input type="text" id="rdv-title" placeholder="Titre du RDV">
+                        <input type="date" id="rdv-start-date">
+                        <input type="date" id="rdv-end-date">
+                        <input type="text" id="rdv-location">
+                        <input type="description" id="rdv-description">
+                        <input type="text" id="rdv-iteration"> 
+                        <div class="modal-buttons">
+                            <button id="btn-cancel-rdv">Annuler</button>
+                            <button id="btn-create-rdv">Créer</button>
+                        </div>
+                </div>
+
+                    </div>
+
+
+                </div>
+         </div>
+         </section>
 
 
 

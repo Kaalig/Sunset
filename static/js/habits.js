@@ -1,4 +1,4 @@
-import { getHabit, getHabits, checkHabit, createHabit, deleteHabit } from "./api.js";
+import { getHabit, getHabits, checkHabit, createHabit, deleteHabit, updateHabit } from "./api.js";
 
 function getWeekDates() {
     const today = new Date();
@@ -80,24 +80,41 @@ document.querySelector('#btn-cancel-habit').addEventListener('click', () => {
     document.querySelector('#modal-habit').style.display = 'none';
 });
 
+
+document.querySelector('#btn-create-habit').addEventListener('click', async() => {
+    const name = document.querySelector('#habit-name').value;
+    const goal = document.querySelector('#habit-goal').value;
+    const description = document.querySelector('#habit-description').value;
+    if (!name) return;
+    await createHabit({ name: name, goal_days: goal, description: description });
+    document.querySelector('#modal-habit').style.display = 'none';
+    document.querySelector('#habit-name').value = '';
+    document.querySelector('#habit-goal').value = '7';
+    document.querySelector('#habit-description').value = '';
+    await displayHabits();
+});
+
 let currentHabitId = null;
 async function openHabit(id) {
     const habit = await getHabit(id);
     currentHabitId = id;
     document.querySelector('#modal-habit-detail').style.display = 'flex';
-    document.querySelector('#habit-detail-name').textContent = habit.name;
-    document.querySelector('#habit-detail-goal').textContent = habit.goal_days;
-    document.querySelector('#habit-detail-description').textContent = habit.description;
+    document.querySelector('#habit-detail-name').value = habit.name;
+    document.querySelector('#habit-detail-goal').value = habit.goal_days;
+    document.querySelector('#habit-detail-description').value = habit.description;
 }
-document.querySelector('#btn-close-habit-detail').addEventListener('click', () => {
+document.querySelector('#btn-close-habit-detail').addEventListener('click', async() => {
     document.querySelector('#modal-habit-detail').style.display = 'none';
-    currentHabitId = null;
-});
-document.querySelector('#btn-delete-habit').addEventListener('click', async() => {
-    await deleteHabit(currentHabitId);
-    document.querySelector('#modal-habit-detail').style.display = 'none';
+    if (currentHabitId) {
+        await updateHabit(currentHabitId, {
+            name: document.querySelector('#habit-detail-name').value,
+            goal_days: document.querySelector('#habit-detail-goal').value,
+            description: document.querySelector('#habit-detail-description').value
+        })
+    };
     currentHabitId = null;
     await displayHabits();
-})
+});
+
 displayHabits();
 
