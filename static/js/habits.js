@@ -41,16 +41,20 @@ export async function displayHabits() {
                 tdDay.innerHTML = '<span class="circle neutral">-</span>';
             } else {    
              if (habit.logs.includes(date)){
+                tdDay.dataset.done = 'true';
                 tdDay.innerHTML = '<span class="circle check">o</span>';
             } else {
+                tdDay.dataset.done = 'false';
                 tdDay.innerHTML = '<span class="circle uncheck">x</span>';
             }
             tdDay.addEventListener('click', async() => {
-                if (tdDay.innerHTML === '<span class="circle check">o</span>'){
+                if (tdDay.dataset.done === 'true'){
                     await checkHabit(habit.id, date, false);
+                    tdDay.dataset.done = 'false';
                     tdDay.innerHTML = '<span class="circle uncheck">x</span>';
                 } else {
                     await checkHabit(habit.id, date, true);
+                    tdDay.dataset.done = 'true';
                     tdDay.innerHTML = '<span class="circle check">o</span>';
                 }
             });

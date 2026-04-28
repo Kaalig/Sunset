@@ -143,6 +143,7 @@ document.querySelector('#corbeille').addEventListener('click', async() => {
     }
     else if (trashedNotes.length > 0) {
         const noteEmpty= document.createElement('button');
+        noteEmpty.className = 'btn-empty-trash';
         noteEmpty.textContent = '🗑 Vider la corbeille';
         noteEmpty.addEventListener('click', async() => {
             await fetch('/api/notes/trash', { method: 'DELETE' });

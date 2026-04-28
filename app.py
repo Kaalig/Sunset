@@ -207,9 +207,7 @@ def api_rdv_id(id):
         conn = sqlite3.connect('sunset.db')
         conn.row_factory = sqlite3.Row
         cursor = conn.cursor()
-        start = request.args.get('start')
-        end = request.args.get('end')
-        cursor.execute('SELECT * FROM rendez_vous WHERE start_date >= ? AND end_date <= ? AND id=?', (start, end, id))
+        cursor.execute('SELECT * FROM rendez_vous WHERE id=?', (id,))
         row = cursor.fetchone()
         conn.close()
         if not row:
@@ -221,9 +219,7 @@ def api_rdv_id(id):
         conn = sqlite3.connect('sunset.db')
         conn.row_factory = sqlite3.Row
         cursor = conn.cursor()
-        start = request.args.get('start')
-        end = request.args.get('end')
-        cursor.execute('SELECT * FROM rendez_vous WHERE id=?', (start, end, id))
+        cursor.execute('SELECT * FROM rendez_vous WHERE id=?', (id,))
         rdv = cursor.fetchone()
         if not rdv:
             conn.close()

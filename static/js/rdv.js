@@ -54,6 +54,9 @@ export async function displayRdv() {
         rdvDiv.innerHTML = '<strong>' + rdv.title + '</strong>';
 
         dayColumns[dayIndex].appendChild(rdvDiv);
+        rdvDiv.addEventListener('click', async() => {
+            await openRdv(rdv.id);
+        })
 }
 }
 
@@ -83,5 +86,36 @@ document.querySelector('#btn-create-rdv').addEventListener('click', async() => {
     document.querySelector('#rdv-end-time').value = '';
     document.querySelector('#rdv-location').value = '';
     document.querySelector('#rdv-description').value = '';
+    await displayRdv();
+});
+
+async function openRdv(id){
+    const rdv = await getRdv(id);
+    let currentRdvId = id;
+    document.querySelector('#modal-rdv-detail').style.display = 'flex';
+    document.querySelector('#rdv-detail-title').value = rdv.title;
+    document.querySelector('#rdv-detail-start-date').value = rdv.start_date.split(' ')[0];
+    document.querySelector('#rdv-detail-start-time').value = rdv.start_date.split(' ')[1];
+    document.querySelector('#rdv-detail-end-date').value = rdv.end_date.split(' ')[0];
+    document.querySelector('#rdv-detail-end-time').value = rdv.end_date.split(' ')[1];
+    document.querySelector('#rdv-detail-location').value = rdv.location;
+    document.querySelector('#rdv-detail-description').value = rdv.description;
+    document.querySelector('#rdv-detail-color').value = rdv.color;
+    await displayRdv();
+};
+
+document.querySelector('#btn-close-rdv-detail').addEventListener('click', async() => {
+    document.querySelector('#modal-rdv-detail').style.display = 'none';
+    if (currentRdvId) {
+        await updateRdv(currentRdvId, {
+            title: document.querySelector('#rdv-detail-title').value,
+            start_date: document.querySelector('#rdv-detail-start-date').value + ' ' + document.querySelector('#rdv-detail-start-time').value,
+            end_date: document.querySelector('#rdv-detail-end-date').value + ' ' + document.querySelector('#rdv-detail-end-time').value,
+            location: document.querySelector('#rdv-detail-location').value,
+            description: document.querySelector('#rdv-detail-description').value,
+            color: document.querySelector('#rdv-detail-color').value
+        })
+    };
+    currentRdvId = null;
     await displayRdv();
 });
