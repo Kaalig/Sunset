@@ -172,7 +172,7 @@ td:nth-child(n+3):nth-child(-n+9) {
     color: #3a3a4a;
 }
 
-/* Boutons de navigation — Dashboard, Habits, Notes */
+/* Boutons de navigation */
 #btn-dashboard,
 .btn-restore-note,
 .btn-empty-trash,
