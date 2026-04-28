@@ -79,7 +79,7 @@ main {
     padding: 20px 30px;
     color: #6302d9;
     margin: 20px;
-    border: #2d2d3a;
+    border: 1px solid#2d2d3a;
     
 }
 .mid_header{
@@ -154,7 +154,7 @@ td:nth-child(n+3):nth-child(-n+9) {
     height: 32px;
     border-radius: 50%;
     font-size: 16px;
-    cursor: pointer;
+    cursor: default;
 }
 
 .check {
@@ -170,6 +170,51 @@ td:nth-child(n+3):nth-child(-n+9) {
 .neutral {
     border: 2px solid #3a3a4a;
     color: #3a3a4a;
+}
+
+/* Boutons de navigation — état inactif */
+#btn-dashboard,
+#btn-notes,
+#btn-habits,
+#btn-cancel-habit,
+#btn-cancel-rdv,
+#btn-cancel-note,
+#btn-back-notes,
+#btn-close-habit-detail,
+#btn-rdv {
+    background: transparent;
+    border: 1px solid #3a3a4a;
+    color: #ffffff;
+    padding: 10px 24px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+#btn-dashboard.active,
+#btn-notes.active,
+#btn-habits.active,
+#btn-rdv.active {
+    background: rgba(108, 92, 231, 0.15); 
+    border: 1px solid #6c5ce7;
+    color: #ffffff;
+}
+
+#btn-new-habits,
+#btn-new-rdv,
+#btn-create-note,
+#btn-create-habit,
+#btn-edit-habit,
+#btn-create-rdv,
+#corbeille,
+#btn-new-note {
+    background: #6c5ce7;
+    color: #ffffff;
+    padding: 10px 24px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
 }
 /* ----------------------- MODAL STYLE ------------------------  */
 
@@ -277,7 +322,7 @@ td:nth-child(n+3):nth-child(-n+9) {
     background: #1c1c24;
     border-radius: 8px;
     cursor: pointer;
-    text-align: center;
+    text-align: left;
     color:#22dd7f;
 }
 
@@ -541,13 +586,4 @@ td:nth-child(n+3):nth-child(-n+9) {
     margin: 0 auto;
     overflow-y: auto;
     max-height: 600px;
-}
-button{
-    background: #6c5ce7;
-    color: white;
-    padding: 10px 24px;
-    border: none;
-    border-radius: 6px;
-    font-size: 14px;
-    cursor: pointer;
 }

@@ -31,6 +31,15 @@ btnRdv.addEventListener('click', () => showTab('rendez-vous'));
    
 // Id TAB
 function showTab(tabId) {
+    // ← Ajoute ces lignes ici
+    document.querySelectorAll('#btn-dashboard, #btn-notes, #btn-habits, #btn-rdv').forEach(btn => btn.classList.remove('active'));
+    const buttonList = {
+        'dashboard': '#btn-dashboard',
+        'habits': '#btn-habits',
+        'notes': '#btn-notes',
+        'rendez-vous': '#btn-rdv'
+    };
+    document.querySelector(buttonList[tabId]).classList.add('active');
     const tabs = document.querySelectorAll('main > section');
     tabs.forEach(function(tab) {
         tab.style.display = 'none';
