@@ -113,8 +113,9 @@ def api_notes():
         cursor = conn.cursor()
         cursor.execute('INSERT INTO notes (title, content) VALUES (?, ?)', (data.get('title', None), data.get('content', None)))
         conn.commit()
+        row_id = cursor.lastrowid
         conn.close()
-        return jsonify({'message': 'Bien reçu','id': cursor.lastrowid}), 200
+        return jsonify({'message': 'Bien reçu','id': row_id}), 200
 
 @app.route('/api/notes/<id>', methods=['GET','PUT','DELETE'])
 def api_notes_id(id):
@@ -206,7 +207,9 @@ def api_rdv_id(id):
         conn = sqlite3.connect('sunset.db')
         conn.row_factory = sqlite3.Row
         cursor = conn.cursor()
-        cursor.execute('SELECT * FROM rendez_vous WHERE id=?', (id,))
+        start = request.args.get('start')
+        end = request.args.get('end')
+        cursor.execute('SELECT * FROM rendez_vous WHERE start_date >= ? AND end_date <= ? AND id=?', (start, end, id))
         row = cursor.fetchone()
         conn.close()
         if not row:
@@ -216,8 +219,16 @@ def api_rdv_id(id):
     elif request.method == 'PUT':
         data = request.get_json()
         conn = sqlite3.connect('sunset.db')
+        conn.row_factory = sqlite3.Row
         cursor = conn.cursor()
-        cursor.execute('UPDATE rendez_vous SET title=?, start_date=?, end_date=?, iteration=?, iteration_frequency=?, location=?, description=?, color=? WHERE id=?', (data['title'], data['start_date'], data['end_date'], data.get('iteration', 0), data.get('iteration_frequency', None), data.get('location', None), data.get('description', None), data.get('color', '#6c5ce7'), id))
+        start = request.args.get('start')
+        end = request.args.get('end')
+        cursor.execute('SELECT * FROM rendez_vous WHERE id=?', (start, end, id))
+        rdv = cursor.fetchone()
+        if not rdv:
+            conn.close()
+            return jsonify({'message': 'Rendez-vous non trouvé'}), 404
+        cursor.execute('UPDATE rendez_vous SET title=?, start_date=?, end_date=?, iteration=?, iteration_frequency=?, location=?, description=?, color=? WHERE id=?', (data.get('title', rdv['title']), data.get('start_date', rdv['start_date']), data.get('end_date', rdv['end_date']), data.get('iteration', rdv['iteration']), data.get('iteration_frequency', rdv['iteration_frequency']), data.get('location', rdv['location']), data.get('description', rdv['description']), data.get('color', rdv['color']), id))
         conn.commit()
         conn.close()
         return jsonify({'message': 'Rendez-vous mis à jour'}), 200
@@ -251,7 +262,7 @@ def api_quotes():
         return jsonify({'message': 'Citation bien ajoutée'}), 200
 
 
-@app.route('/api/quotes/<id>', methods=['GET','DELETE'])
+@app.route('/api/quotes/<id>', methods=['GET','PUT','DELETE'])
 def api_quotes_id(id):
     if request.method == 'GET':
         conn = sqlite3.connect('sunset.db')
@@ -264,6 +275,20 @@ def api_quotes_id(id):
             return jsonify({'message': 'Citation non trouvée'}), 404
         quote = dict(row)
         return quote
+    elif request.method == 'PUT':
+        data = request.get_json()
+        conn = sqlite3.connect('sunset.db')
+        conn.row_factory = sqlite3.Row
+        cursor = conn.cursor()
+        cursor.execute('SELECT * FROM quotes WHERE id=?', (id,))
+        quote = cursor.fetchone()
+        if not quote:
+            conn.close()
+            return jsonify({'message': 'Citation non trouvée'}), 404
+        cursor.execute('UPDATE quotes SET quote=? WHERE id=?', (data.get('quote', quote['quote']), id))
+        conn.commit()
+        conn.close()
+        return jsonify({'message': 'Citation bien mise à jour'}), 200
     else:
         conn = sqlite3.connect('sunset.db')
         cursor = conn.cursor()

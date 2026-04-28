@@ -181,4 +181,3 @@ document.querySelector('#corbeille').addEventListener('click', async() => {
     }
 
 });
-displayNotes();

@@ -34,9 +34,13 @@ export async function displayHabits() {
         tr.appendChild(tdName);
         tr.appendChild(tdGoaldays);
 
+        const today = new Date().toISOString().split('T')[0];
         for (const date of weekDates){
             const tdDay = document.createElement('td');
-            if (habit.logs.includes(date)){
+            if (date > today){
+                tdDay.innerHTML = '<span class="circle neutral">-</span>';
+            } else {    
+             if (habit.logs.includes(date)){
                 tdDay.innerHTML = '<span class="circle check">o</span>';
             } else {
                 tdDay.innerHTML = '<span class="circle uncheck">x</span>';
@@ -49,7 +53,8 @@ export async function displayHabits() {
                     await checkHabit(habit.id, date, true);
                     tdDay.innerHTML = '<span class="circle check">o</span>';
                 }
-            })
+            });
+            }
             tr.appendChild(tdDay);
         }
         const checked = weekDates.filter(date => habit.logs.includes(date)).length;
@@ -71,7 +76,7 @@ export async function displayHabits() {
         tbody.appendChild(tr);
     }
    
-}
+};
 document.querySelector('#btn-new-habits').addEventListener('click', () => {
     document.querySelector('#modal-habit').style.display = 'flex';
 });
@@ -116,5 +121,10 @@ document.querySelector('#btn-close-habit-detail').addEventListener('click', asyn
     await displayHabits();
 });
 
-displayHabits();
+document.querySelector('#btn-delete-habit').addEventListener('click', async() => {
+    await deleteHabit(currentHabitId);
+    document.querySelector('#modal-habit-detail').style.display = 'none';
+    currentHabitId = null;
+    await displayHabits();
+});
 

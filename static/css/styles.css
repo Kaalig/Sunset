@@ -167,6 +167,10 @@ td:nth-child(n+3):nth-child(-n+9) {
     color: #e74c3c;
 }
 
+.neutral {
+    border: 2px solid #3a3a4a;
+    color: #3a3a4a;
+}
 /* ----------------------- MODAL STYLE ------------------------  */
 
 #modal-habit {

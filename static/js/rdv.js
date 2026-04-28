@@ -85,5 +85,3 @@ document.querySelector('#btn-create-rdv').addEventListener('click', async() => {
     document.querySelector('#rdv-description').value = '';
     await displayRdv();
 });
-
-displayRdv();

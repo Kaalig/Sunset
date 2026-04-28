@@ -34,7 +34,8 @@ function showTab(tabId) {
     const tabs = document.querySelectorAll('main > section');
     tabs.forEach(function(tab) {
         tab.style.display = 'none';
-        if (tabId === 'notes') {
+    });
+    if (tabId === 'notes') {
             displayNotes();
         }
         else if (tabId === 'habits') {
@@ -43,7 +44,6 @@ function showTab(tabId) {
         else if (tabId === 'rendez-vous') {
             displayRdv();
         }
-    });
     document.querySelector('#' + tabId).style.display = 'block';
     document.querySelector('#page-title').textContent = titles[tabId];
 }
