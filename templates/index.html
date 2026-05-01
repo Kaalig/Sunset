@@ -169,8 +169,7 @@
                         <label class="calendar-modal-title">Lieu</label>
                         <input type="text" id="rdv-location">
                         <label class="calendar-modal-title">Commentaires</label>
-                        <input type="text" id="rdv-description">
-                        
+                        <textarea id="rdv-description"></textarea>
                         <input type="color" id="rdv-color" value="#6c5ce7">
                         <div class="modal-buttons">
                             <button id="btn-cancel-rdv">Annuler</button>
@@ -194,7 +193,7 @@
                         <label class="calendar-modal-title">Lieu</label>
                         <input type="text" id="rdv-detail-location">
                         <label class="calendar-modal-title">Commentaires</label>
-                        <input type="text" id="rdv-detail-description">
+                        <textarea id="rdv-detail-description"></textarea>
                         <label class="calendar-modal-title">Couleur</label>
                         <input type="color" id="rdv-detail-color" value="#6c5ce7">
                         <div class="modal-buttons">
@@ -207,6 +206,11 @@
 
             </div>
         <div class="card">
+                <div class="calendar-nav">
+                    <button id="btn-prev-week">←</button>
+                    <h3 id="calendar-month-title"></h3>
+                    <button id="btn-next-week">→</button>
+                </div>
             <div class="calendar-header">
                 <div></div>
                 <div class="calendar-day">Lun</div>

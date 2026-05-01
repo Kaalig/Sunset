@@ -1,10 +1,10 @@
 import { getHabit, getHabits, checkHabit, createHabit, deleteHabit, updateHabit } from "./api.js";
 
-export function getWeekDates() {
+export function getWeekDates(offset = 0) {
     const today = new Date();
     const day = today.getDay();
     const monday = new Date(today); // Copie today
-    monday.setDate(today.getDate() - (day === 0 ? 6 : day - 1)); // If/else sur une ligne
+    monday.setDate(today.getDate() - (day === 0 ? 6 : day - 1) + (offset * 7)); // If/else sur une ligne
 
     const dates = [];
     for (let i = 0; i < 7; i++) {

@@ -1,11 +1,14 @@
 import { getRdv, getRdvs, createRdv, deleteRdv, updateRdv } from "./api.js";
 import { getWeekDates } from "./habits.js";
 
+let weekOffset = 0;
 export async function displayRdv() {
     const rdvs = await getRdvs();
     const grid = document.querySelector('#calendar-grid');
     grid.innerHTML = '';
-    const weekDates = getWeekDates();
+    const weekDates = getWeekDates(weekOffset);
+    const firstDay = new Date(weekDates[0]);
+    document.querySelector('#calendar-month-title').textContent = firstDay.toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' });
     const dayHeaders = document.querySelectorAll('.calendar-day');
     const days = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
     for (let i = 0; i < 7; i++) {
@@ -51,14 +54,26 @@ export async function displayRdv() {
         rdvDiv.style.top = top + 'px';
         rdvDiv.style.height = height + 'px';
         rdvDiv.style.backgroundColor = rdv.color;
-        rdvDiv.innerHTML = '<strong>' + rdv.title + '</strong>';
+        rdvDiv.innerHTML = '<strong>' + rdv.title + '</strong><br>' + '<em>' + String(startHour).padStart(2, '0') + ':' + String(startMin).padStart(2, '0') + ' - ' + String(endHour).padStart(2, '0') + ':' + String(endMin).padStart(2, '0') + '</em><br>' + '<em>' + (rdv.description || '') + '</em>';
+        
 
         dayColumns[dayIndex].appendChild(rdvDiv);
         rdvDiv.addEventListener('click', async() => {
             await openRdv(rdv.id);
         })
+
 }
 }
+
+document.querySelector('#btn-prev-week').addEventListener('click', async () => {
+    weekOffset--;
+    await displayRdv();
+});
+
+document.querySelector('#btn-next-week').addEventListener('click', async () => {
+    weekOffset++;
+    await displayRdv();
+});
 
 document.querySelector('#btn-new-rdv').addEventListener('click', () => {
 document.querySelector('#modal-rdv').style.display = 'flex';
@@ -89,9 +104,10 @@ document.querySelector('#btn-create-rdv').addEventListener('click', async() => {
     await displayRdv();
 });
 
+let currentRdvId = null;
 async function openRdv(id){
     const rdv = await getRdv(id);
-    let currentRdvId = id;
+    currentRdvId = id;
     document.querySelector('#modal-rdv-detail').style.display = 'flex';
     document.querySelector('#rdv-detail-title').value = rdv.title;
     document.querySelector('#rdv-detail-start-date').value = rdv.start_date.split(' ')[0];
@@ -116,6 +132,13 @@ document.querySelector('#btn-close-rdv-detail').addEventListener('click', async(
             color: document.querySelector('#rdv-detail-color').value
         })
     };
+    currentRdvId = null;
+    await displayRdv();
+});
+
+document.querySelector('#btn-delete-rdv').addEventListener('click', async() => {
+    await deleteRdv(currentRdvId);
+    document.querySelector('#modal-rdv-detail').style.display = 'none';
     currentRdvId = null;
     await displayRdv();
 });
