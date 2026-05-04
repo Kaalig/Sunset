@@ -1,3 +1,6 @@
+
+# qsdqsqds
+
 import { getNote, getNotes, createNote, deleteNote, updateNotes } from "./api.js";
 
 export async function displayNotes() {
@@ -70,7 +73,7 @@ document.querySelector('#btn-create-note').addEventListener('click', async() => 
     await openNote(response.id);
 });
 let currentNoteId = null;
-async function openNote(id) {
+export async function openNote(id) {
     const note = await getNote(id);
     currentNoteId = id;
     document.querySelector('#notes-list').style.display = 'none';

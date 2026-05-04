@@ -1,6 +1,7 @@
 import { displayHabits } from "./habits.js";
 import { displayNotes } from './notes.js';
 import { displayRdv } from "./rdv.js";
+import { displayDashboard } from "./dashboard.js";
 
 // Date - Time 
 
@@ -53,6 +54,9 @@ function showTab(tabId) {
         else if (tabId === 'rendez-vous') {
             displayRdv();
         }
+        else if (tabId === 'dashboard') {
+            displayDashboard();
+        }
     document.querySelector('#' + tabId).style.display = 'block';
     document.querySelector('#page-title').textContent = titles[tabId];
 }
@@ -76,3 +80,5 @@ const citation = [
 const random = citation[Math.floor(Math.random() * citation.length)];
 const quoteElement = document.querySelector('#citation');
 quoteElement.textContent = random;
+
+showTab('dashboard');

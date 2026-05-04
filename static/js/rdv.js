@@ -105,7 +105,7 @@ document.querySelector('#btn-create-rdv').addEventListener('click', async() => {
 });
 
 let currentRdvId = null;
-async function openRdv(id){
+export async function openRdv(id){
     const rdv = await getRdv(id);
     currentRdvId = id;
     document.querySelector('#modal-rdv-detail').style.display = 'flex';
