@@ -1,6 +1,3 @@
-
-# qsdqsqds
-
 import { getNote, getNotes, createNote, deleteNote, updateNotes } from "./api.js";
 
 export async function displayNotes() {
@@ -140,7 +137,7 @@ document.querySelector('#corbeille').addEventListener('click', async() => {
 
     if (trashedNotes.length === 0) {
         const noteDiv = document.createElement('div');
-        noteDiv.className = 'note-item'; //TODO : Créer une autre classe parce qu'elle est aussi utilisée pour les preview de note.
+        noteDiv.className = 'note-corbeille'; //TODO : Créer une autre classe parce qu'elle est aussi utilisée pour les preview de note.
         noteDiv.textContent = 'Aucune note dans la corbeille';
         notesList.appendChild(noteDiv);
     }

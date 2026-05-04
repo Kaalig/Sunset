@@ -30,11 +30,13 @@ export async function displayHabits() {
         tdName.addEventListener('click', async() => {
             await openHabit(habit.id);
         })
-        tdGoaldays.textContent = habit.goal_days;
+        tdGoaldays.textContent = habit.goal_days + ' jours';
         tr.appendChild(tdName);
         tr.appendChild(tdGoaldays);
 
         const today = new Date().toISOString().split('T')[0];
+        const tdTotal = document.createElement('td');
+
         for (const date of weekDates){
             const tdDay = document.createElement('td');
             if (date > today){
@@ -52,19 +54,23 @@ export async function displayHabits() {
                     await checkHabit(habit.id, date, false);
                     tdDay.dataset.done = 'false';
                     tdDay.innerHTML = '<span class="circle uncheck">x</span>';
+                    const totalCount = tr.querySelectorAll('td[data-done="true"]').length;
+                    tdTotal.textContent = totalCount + '/' + habit.goal_days;
                 } else {
                     await checkHabit(habit.id, date, true);
                     tdDay.dataset.done = 'true';
                     tdDay.innerHTML = '<span class="circle check">o</span>';
+                    const totalCount = tr.querySelectorAll('td[data-done="true"]').length;
+                    tdTotal.textContent = totalCount + '/' + habit.goal_days;
                 }
             });
             }
+            
             tr.appendChild(tdDay);
         }
         const checked = weekDates.filter(date => habit.logs.includes(date)).length;
         const ratio = checked / habit.goal_days;
 
-        const tdTotal = document.createElement('td');
         tdTotal.textContent = checked + '/' + habit.goal_days;
 
         if (ratio >= 1) {

@@ -1,5 +1,6 @@
 from flask import Flask, render_template, jsonify, request
 import sqlite3
+from datetime import datetime, timedelta
 
 app = Flask(__name__)
 
@@ -32,9 +33,6 @@ def api_habit():
         conn.commit()
         conn.close()
         return jsonify({'message': 'Bien reçu'}), 200
-
-# TODO : CHANGER LE PUT POUR NE PAS QUE SI ON SELECTIONNE QUE LE NAME  LA DESCRIPTION EST ECRASEE ET LE GOAL_DAYS REVIENT A 7
-# ? Je ne sais pas comment faire.
 
 @app.route('/api/habits/<id>', methods=['GET','PUT','DELETE'])
 def api_habit_id(id):
@@ -93,7 +91,53 @@ def api_habit_check(id):
 
 @app.route ('/api/habits/stats', methods=['GET'])
 def api_habit_stats():
-    return jsonify({'message': 'TODO'}), 200
+    
+    today = datetime.today()
+    monday = today - timedelta(days=today.weekday())
+    sunday = monday + timedelta(days=6)
+    last_monday = monday - timedelta(days=7)
+    last_sunday = sunday - timedelta(days=7)
+
+    monday_str = monday.strftime('%Y-%m-%d')
+    sunday_str = sunday.strftime('%Y-%m-%d')
+    last_monday_str = last_monday.strftime('%Y-%m-%d')
+    last_sunday_str = last_sunday.strftime('%Y-%m-%d')
+
+    conn = sqlite3.connect('sunset.db')
+    conn.row_factory = sqlite3.Row
+    cursor = conn.cursor()
+
+    # 1. Toutes les habitudes
+    cursor.execute('SELECT * FROM habits')
+    habits = [dict(row) for row in cursor.fetchall()]
+    active_count = len(habits)
+
+    # 2. Checks cette semaine
+    cursor.execute('SELECT * FROM habits_logs WHERE completed_date BETWEEN ? AND ?', (monday_str, sunday_str))
+    checks_this_week = len(cursor.fetchall())
+
+    # 3. Checks semaine dernière
+    cursor.execute('SELECT * FROM habits_logs WHERE completed_date BETWEEN ? AND ?', (last_monday_str, last_sunday_str))
+    checks_last_week = len(cursor.fetchall())
+
+    # 4. Total possible = somme des goal_days
+    total_possible = sum(h['goal_days'] for h in habits)
+
+    # 5. Calcul des pourcentages
+    if total_possible > 0:
+        completion = round(checks_this_week / total_possible * 100)
+        completion_last = round(checks_last_week / total_possible * 100)
+        evolution = completion - completion_last
+    else:
+        completion = 0
+        evolution = 0
+
+    conn.close()
+    return jsonify({
+        'active_count': active_count,
+        'completion': completion,
+        'evolution': evolution
+    })
 
 
 # --------------- NOTES ------------------

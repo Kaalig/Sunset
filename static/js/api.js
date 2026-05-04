@@ -43,6 +43,11 @@ export async function deleteHabit(id) {
     });
     return await response.json();
 }
+
+export async function getHabitStats() {
+    const response = await fetch('/api/habits/stats');
+    return await response.json();
+}
 // ------------------------ NOTES -------------------------------
 
 export async function createNote(data) {

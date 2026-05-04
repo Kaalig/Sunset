@@ -1,14 +1,27 @@
-import { getNotes } from "./api.js";
+import { getNotes, getHabitStats } from "./api.js";
 import { openNote } from "./notes.js";
 import { getRdvs } from "./api.js";
 import { getWeekDates } from "./habits.js";
 import { openRdv } from "./rdv.js";
 
 export async function displayDashboard() {
-    // await displayHabitStats();
+    await displayHabitStats();
     await displayFutureRdvs();
     await displayLastNotes();
 }
+
+async function displayHabitStats() {
+    const stats = await getHabitStats();
+    const sign_com = stats.completion > 0 ? '+' : '';
+    const sign_ev = stats.evolution > 0 ? '+' : '';
+    document.querySelector('#dashboard-habit-active-count').textContent = stats.active_count;
+    document.querySelector('#dashboard-habit-completion').textContent = sign_com + stats.completion + '%';
+    // Todo : Le calcul de la completion devrait  se faire sur le total de checks en cours possiblement atteignable et non le total de cheks de la semaine
+    document.querySelector('#dashboard-habit-completion').style.color = stats.completion >= 50 ? '#2ecc71' : '#e74c3c';
+    document.querySelector('#dashboard-habit-evolution').textContent = sign_ev + stats.evolution + '%';
+    document.querySelector('#dashboard-habit-evolution').style.color = stats.evolution >= 0 ? '#2ecc71' : '#e74c3c';
+}
+
 
 async function displayFutureRdvs () {
     const container = document.querySelector('#dashboard-rdv-grid');
@@ -75,8 +88,10 @@ async function displayLastNotes() {
 
         const noteTitle = document.createElement('h4');
         noteTitle.textContent = note.title;
+        noteTitle.style.color = '#0d94d3';
 
         const notePreview = document.createElement('p');
+        notePreview.style.color = '#d0d0db';
         const temp = document.createElement('div');
         temp.innerHTML = note.content || '';
         notePreview.textContent = temp.textContent ? temp.textContent.substring(0, 80) + '...' : '';

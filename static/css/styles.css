@@ -95,6 +95,14 @@ main {
     color:#22dd7f;
 }
 
+.dashboard-habit-stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+}
+
 #dashboard-rdv-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
@@ -409,6 +417,7 @@ td:nth-child(n+3):nth-child(-n+9) {
     color:#22dd7f;
 }
 
+
 .note-header {
     display: flex;
     justify-content: space-between;
@@ -436,6 +445,17 @@ td:nth-child(n+3):nth-child(-n+9) {
     font-style: italic;
     font-size: 14px;
     margin-top: 8px;
+}
+
+.note-corbeille {
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    background: #1c1c24;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    color:#22dd7f;
+
 }
 
 .btn-delete-note {
