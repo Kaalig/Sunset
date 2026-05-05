@@ -368,10 +368,33 @@ def api_import():
     data = request.get_json()
     conn = sqlite3.connect('sunset.db')
     cursor = conn.cursor()
-    cursor.execute('')
+
+# Obligé de delete les données avant pour éviter les conflits avec les données en cours
+    cursor.execute('DELETE FROM habits_logs')
+    cursor.execute('DELETE FROM habits')
+    cursor.execute('DELETE FROM notes')
+    cursor.execute('DELETE FROM rendez_vous')
+    cursor.execute('DELETE FROM quotes')
+
+    for habit in data['habits']:
+        cursor.execute('INSERT INTO habits (id, name, description, goal_days, created_at) VALUES (?, ?, ?, ?, ?)',
+            (habit['id'], habit['name'], habit['description'], habit['goal_days'], habit['created_at']))
+    for log in data['habits_logs']:
+        cursor.execute('INSERT INTO habits_logs (id, habit_id, completed_date) VALUES (?, ?, ?)',
+            (log['id'], log['habit_id'], log['completed_date']))
+    for note in data['notes']:
+        cursor.execute('INSERT INTO notes (id, title, content, created_at, edited_at, deleted_at) VALUES (?, ?, ?, ?, ?, ?)',
+            (note['id'], note['title'], note['content'], note['created_at'], note['edited_at'], note['deleted_at']))
+    for rdv in data['rdvs']:
+        cursor.execute('INSERT INTO rendez_vous (id, title, start_date, end_date, iteration, iteration_frequency, location, description, color, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            (rdv['id'], rdv['title'], rdv['start_date'], rdv['end_date'], rdv['iteration'], rdv['iteration_frequency'], rdv['location'], rdv['description'], rdv['color'], rdv['created_at']))
+    for quote in data['quotes']:
+        cursor.execute('INSERT INTO quotes (id, quote) VALUES (?, ?)',
+            (quote['id'], quote['quote']))
+
     conn.commit()
     conn.close()
-    return jsonify({'message': 'TODO'}), 200
-
+    return jsonify({'message': 'Importation effectuée avec succès !'}), 200
+   
 if __name__ == '__main__':
     app.run(debug=True)
