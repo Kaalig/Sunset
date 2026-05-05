@@ -137,7 +137,7 @@ document.querySelector('#corbeille').addEventListener('click', async() => {
 
     if (trashedNotes.length === 0) {
         const noteDiv = document.createElement('div');
-        noteDiv.className = 'note-corbeille'; //TODO : Créer une autre classe parce qu'elle est aussi utilisée pour les preview de note.
+        noteDiv.className = 'note-corbeille';
         noteDiv.textContent = 'Aucune note dans la corbeille';
         notesList.appendChild(noteDiv);
     }

@@ -346,9 +346,23 @@ def api_export():
     conn = sqlite3.connect('sunset.db')
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
-    cursor.execute('')
+    cursor.execute('SELECT * FROM habits')
+    habits = [dict(row) for row in cursor.fetchall()]
+
+    cursor.execute('SELECT * FROM habits_logs')
+    habits_logs = [dict(row) for row in cursor.fetchall()]
+
+    cursor.execute('SELECT * FROM notes')
+    notes = [dict(row) for row in cursor.fetchall()]
+
+    cursor.execute('SELECT * FROM rendez_vous')
+    rdvs = [dict(row) for row in cursor.fetchall()]
+
+    cursor.execute('SELECT * FROM quotes')
+    quotes = [dict(row) for row in cursor.fetchall()]
+    
     conn.close()
-    return jsonify({'message': 'TODO'}), 200
+    return jsonify({'habits': habits, 'habits_logs': habits_logs, 'notes': notes, 'rdvs': rdvs, 'quotes': quotes}), 200
 @app.route('/api/import', methods=['POST'])
 def api_import():
     data = request.get_json()

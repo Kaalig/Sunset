@@ -135,13 +135,17 @@ main {
 }
 
 .little_header{
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     color:#ffffff;
     font-size: 16px;
-    gap: 120px;
-    justify-content: space-between;
-    padding: 0 40px;
+    padding: 10px 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
 
+}
+.little_header p {
+    margin: 0;
 }
 .onglets{
     gap: 10px;

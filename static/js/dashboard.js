@@ -18,6 +18,7 @@ async function displayHabitStats() {
     document.querySelector('#dashboard-habit-completion').textContent = sign_com + stats.completion + '%';
     // Todo : Le calcul de la completion devrait  se faire sur le total de checks en cours possiblement atteignable et non le total de cheks de la semaine
     document.querySelector('#dashboard-habit-completion').style.color = stats.completion >= 50 ? '#2ecc71' : '#e74c3c';
+    // Todo : Le calcul de l'évolutonp'n devrait  se faire sur le total de checks en cours possiblement atteignable et non le total de cheks de la semaine
     document.querySelector('#dashboard-habit-evolution').textContent = sign_ev + stats.evolution + '%';
     document.querySelector('#dashboard-habit-evolution').style.color = stats.evolution >= 0 ? '#2ecc71' : '#e74c3c';
 }
