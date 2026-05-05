@@ -18,6 +18,7 @@ if %errorlevel% neq 0 (
     )
 )
 echo Lancement de Sunset...
+echo Ne pas fermer le terminal durant votre temps sur Sunset !
 start http://localhost:5000
 python app.py
 
