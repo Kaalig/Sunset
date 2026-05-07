@@ -10,6 +10,7 @@ cursor.execute('''
         name TEXT NOT NULL,
         description TEXT,
         goal_days INTEGER NOT NULL DEFAULT 7,
+        is_anti INTEGER DEFAULT 0,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
 ''')

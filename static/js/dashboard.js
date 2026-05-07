@@ -95,7 +95,9 @@ async function displayLastNotes() {
         notePreview.style.color = '#d0d0db';
         const temp = document.createElement('div');
         temp.innerHTML = note.content || '';
-        notePreview.textContent = temp.textContent ? temp.textContent.substring(0, 80) + '...' : '';
+        const text = temp.textContent;
+        notePreview.textContent = text.length > 80 ? text.substring(0, 80) + '...' : text;
+    
 
         noteDiv.appendChild(noteTitle);
         noteDiv.appendChild(notePreview);

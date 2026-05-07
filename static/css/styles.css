@@ -39,7 +39,7 @@ main {
     justify-content: center;
     align-items: center;
     text-transform: capitalize;
-    color: #ffffff;
+    color: #e9ec0a;
     font-size: 18px;
     margin-top: 3px;
 }
@@ -185,6 +185,7 @@ td {
 tbody tr {
     border-bottom: 1px solid #2d2d3a;
     color:#8ee2b1;
+    font-weight: bold;
 }
 thead tr {
     border-bottom: 1px solid #2d2d3a;
@@ -254,7 +255,6 @@ td:nth-child(n+3):nth-child(-n+9) {
 
 #btn-dashboard,
 .btn-restore-note,
-.btn-empty-trash,
 #btn-notes,
 #btn-habits,
 #btn-cancel-habit,
@@ -273,6 +273,18 @@ td:nth-child(n+3):nth-child(-n+9) {
     border-radius: 6px;
     font-size: 14px;
     cursor: pointer;
+}
+
+.btn-empty-trash {
+    background: transparent;
+    border: 1px solid #3a3a4a;
+    color: #ffffff;
+    padding: 10px 24px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-bottom: 10px;
+
 }
 
 #btn-dashboard.active,
@@ -388,7 +400,43 @@ td:nth-child(n+3):nth-child(-n+9) {
     z-index: 100;
 }
 #habit-detail-name{
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: 'JetBrains Mono', monospace;
     text-align: center;
+    outline: none;
+    width: 100%;
+}
+
+.habit-goal-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+#habit-goal {
+    width: 80px;
+    text-align: center;
+}
+
+.habit-goal-label {
+    color: #888;
+    font-size: 13px;
+}
+
+#habit-type {
+    background: #2a2a35;
+    border: 1px solid #3a3a4a;
+    border-radius: 6px;
+    padding: 10px;
+    color: #a29bfe;
+    font-size: 14px;
+    font-family: 'JetBrains Mono', monospace;
+    cursor: pointer;
+    outline: none;
 }
 
 /* ----------------------- NOTES STYLE ------------------------  */
@@ -430,7 +478,7 @@ td:nth-child(n+3):nth-child(-n+9) {
 
 .note-title {
     font-weight: bold;
-    color: #ffffff;
+    color: #74e60b;
     font-size: 16px;
 }
 .note-right {
@@ -525,7 +573,7 @@ td:nth-child(n+3):nth-child(-n+9) {
 #note-detail-title {
     background: transparent;
     border: none;
-    color: #ffffff;
+    color: #74e60b;
     font-size: 24px;
     font-weight: bold;
     font-family: 'JetBrains Mono', monospace;

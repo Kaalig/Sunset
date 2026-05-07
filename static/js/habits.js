@@ -56,31 +56,69 @@ export async function displayHabits() {
                     tdDay.innerHTML = '<span class="circle uncheck">x</span>';
                     const totalCount = tr.querySelectorAll('td[data-done="true"]').length;
                     tdTotal.textContent = totalCount + '/' + habit.goal_days;
+                    checked--;
                 } else {
                     await checkHabit(habit.id, date, true);
                     tdDay.dataset.done = 'true';
                     tdDay.innerHTML = '<span class="circle check">o</span>';
                     const totalCount = tr.querySelectorAll('td[data-done="true"]').length;
                     tdTotal.textContent = totalCount + '/' + habit.goal_days;
+                    checked++;
+                }
+
+                tdTotal.textContent = checked + '/' + habit.goal_days;
+                const ratio = checked / habit.goal_days;
+                if (habit.is_anti) {
+                    if (ratio <= 1) {
+                        tdTotal.style.color = '#3498db';
+                    } else if (ratio <= 1.3) {
+                        tdTotal.style.color = '#2ecc71';
+                    } else if (ratio <= 1.6) {
+                        tdTotal.style.color = '#f1c40f';
+                    } else {
+                        tdTotal.style.color = '#e74c3c';
+                    }
+                } else {
+                    if (ratio >= 1) {
+                        tdTotal.style.color = '#3498db';
+                    } else if (ratio >= 0.7) {
+                        tdTotal.style.color = '#2ecc71';
+                    } else if (ratio >= 0.4) {
+                        tdTotal.style.color = '#f1c40f';
+                    } else {
+                        tdTotal.style.color = '#e74c3c';
+                    }
                 }
             });
             }
             
             tr.appendChild(tdDay);
         }
-        const checked = weekDates.filter(date => habit.logs.includes(date)).length;
+        let checked = weekDates.filter(date => habit.logs.includes(date)).length;
         const ratio = checked / habit.goal_days;
 
         tdTotal.textContent = checked + '/' + habit.goal_days;
 
-        if (ratio >= 1) {
-            tdTotal.style.color = '#3498db';
-        } else if (ratio >= 0.7) {
-            tdTotal.style.color = '#2ecc71';
-        } else if (ratio >= 0.4) {
-            tdTotal.style.color = '#f1c40f';
+        if (habit.is_anti) {
+            if (ratio <= 1) {
+                tdTotal.style.color = '#3498db';
+            } else if (ratio <= 1.3) {
+                tdTotal.style.color = '#2ecc71';
+            } else if (ratio <= 1.6) {
+                tdTotal.style.color = '#f1c40f';
+            } else {
+                tdTotal.style.color = '#e74c3c';
+            }
         } else {
-            tdTotal.style.color = '#e74c3c';
+            if (ratio >= 1) {
+                tdTotal.style.color = '#3498db';
+            } else if (ratio >= 0.7) {
+                tdTotal.style.color = '#2ecc71';
+            } else if (ratio >= 0.4) {
+                tdTotal.style.color = '#f1c40f';
+            } else {
+                tdTotal.style.color = '#e74c3c';
+            }
         }
         tr.appendChild(tdTotal);
         tbody.appendChild(tr);
@@ -100,11 +138,13 @@ document.querySelector('#btn-create-habit').addEventListener('click', async() =>
     const name = document.querySelector('#habit-name').value;
     const goal = document.querySelector('#habit-goal').value;
     const description = document.querySelector('#habit-description').value;
+    const isAnti = document.querySelector('#habit-type').value;
     if (!name) return;
-    await createHabit({ name: name, goal_days: goal, description: description });
+    await createHabit({ name: name, goal_days: goal, description: description, is_anti: parseInt(isAnti) });
     document.querySelector('#modal-habit').style.display = 'none';
     document.querySelector('#habit-name').value = '';
     document.querySelector('#habit-goal').value = '7';
+    document.querySelector('#habit-type').value = '0';
     document.querySelector('#habit-description').value = '';
     await displayHabits();
 });

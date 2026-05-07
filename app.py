@@ -29,7 +29,7 @@ def api_habit():
         data = request.get_json()
         conn = sqlite3.connect('sunset.db')
         cursor = conn.cursor()
-        cursor.execute('INSERT INTO habits (name, description, goal_days) VALUES (?, ?, ?)', (data['name'], data.get('description', None), data.get('goal_days', 7)))
+        cursor.execute('INSERT INTO habits (name, description, goal_days, is_anti) VALUES (?, ?, ?, ?)', (data['name'], data.get('description', None), data.get('goal_days', 7), data.get('is_anti', 0)))
         conn.commit()
         conn.close()
         return jsonify({'message': 'Bien reçu'}), 200
@@ -57,7 +57,7 @@ def api_habit_id(id):
         if not habit:
             conn.close()
             return jsonify({'message': 'Habitude non trouvé'}), 404
-        cursor.execute('UPDATE habits SET name=?, description=?, goal_days=? WHERE id=?', (data.get('name', habit['name']), data.get('description', habit['description']), data.get('goal_days', habit['goal_days']), id))
+        cursor.execute('UPDATE habits SET name=?, description=?, goal_days=?, is_anti=? WHERE id=?', (data.get('name', habit['name']), data.get('description', habit['description']), data.get('goal_days', habit['goal_days']), data.get('is_anti', habit['is_anti']), id))
         conn.commit()
         conn.close()
         return jsonify({'message': 'Bien mis à jour'}), 200

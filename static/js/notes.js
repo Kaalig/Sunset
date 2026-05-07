@@ -1,5 +1,18 @@
 import { getNote, getNotes, createNote, deleteNote, updateNotes } from "./api.js";
 
+//? Pour plus me casser la tête avec le formattage des dates.
+function formatDate(dateStr) {
+    const date = new Date(dateStr);
+    const mois = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Août', 'Sep', 'Oct', 'Nov', 'Déc'];
+    const jour = date.getDate();
+    const m = mois[date.getMonth()];
+    const annee = date.getFullYear();
+    const heures = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const secondes = String(date.getSeconds()).padStart(2, '0');
+    return `${jour} ${m} ${annee} - ${heures}:${minutes}:${secondes}`;
+}
+
 export async function displayNotes() {
     const notes = await getNotes();
     const notesList = document.querySelector('#notes-list');
@@ -15,7 +28,7 @@ export async function displayNotes() {
         const noteTitle = document.createElement('h3');
         noteTitle.className = 'note-title';
         noteTitle.textContent = note.title;
-
+        noteTitle.style.color = '#38e016';
         // Bloc à droite (btn supprimer + date)
 
         const noteRight = document.createElement('div');
@@ -43,7 +56,8 @@ export async function displayNotes() {
         notePreview.className = 'note-preview';
         const temp = document.createElement('div'); // Div invisible dans le but de pas voir les balises dans le preview (HTML interprète la div donc ca reprend pas les balises de style)
         temp.innerHTML = note.content || ''; 
-        notePreview.textContent = temp.textContent ? temp.textContent.substring(0, 80) + '...' : '';
+        const text = temp.textContent;
+        notePreview.textContent = text.length > 80 ? text.substring(0, 80) + '...' : text;
     
         noteDiv.appendChild(noteHeader);
         noteDiv.appendChild(notePreview);
@@ -134,6 +148,7 @@ document.querySelector('#corbeille').addEventListener('click', async() => {
     const trashedNotes = await response.json();
     const notesList = document.querySelector('#notes-list');
     notesList.innerHTML = '';
+    
 
     if (trashedNotes.length === 0) {
         const noteDiv = document.createElement('div');
@@ -142,9 +157,10 @@ document.querySelector('#corbeille').addEventListener('click', async() => {
         notesList.appendChild(noteDiv);
     }
     else if (trashedNotes.length > 0) {
+        
         const noteEmpty= document.createElement('button');
         noteEmpty.className = 'btn-empty-trash';
-        noteEmpty.textContent = '🗑 Vider la corbeille';
+        noteEmpty.textContent = 'Vider la corbeille';
         noteEmpty.addEventListener('click', async() => {
             await fetch('/api/notes/trash', { method: 'DELETE' });
             document.querySelector('#corbeille').click(); // Refresh la corbeille
@@ -168,7 +184,10 @@ document.querySelector('#corbeille').addEventListener('click', async() => {
         const notePreview = document.createElement('p');
         noteRestore.className = 'btn-restore-note';
         notePreview.className = 'note-preview';
-        notePreview.textContent = note.content ? note.content.substring(0, 100) + '...' : '';
+        const temp = document.createElement('div'); // Div invisible dans le but de pas voir les balises dans le preview (HTML interprète la div donc ca reprend pas les balises de style)
+        temp.innerHTML = note.content || ''; 
+        const text = temp.textContent;
+        notePreview.textContent = text.length > 80 ? text.substring(0, 80) + '...' : text;
         noteRestore.textContent = '♻️ Restaurer la note'; // Logo de lopsa à changer
         noteRestore.addEventListener('click', async() => {
             await fetch(`/api/notes/${note.id}/restore`, { method: 'POST' });
@@ -177,6 +196,7 @@ document.querySelector('#corbeille').addEventListener('click', async() => {
         noteHeader.appendChild(noteTitle);
         noteHeader.appendChild(noteRestore);
         noteDiv.appendChild(noteHeader);
+        noteDiv.appendChild(notePreview);
         notesList.appendChild(noteDiv);
 
     }
