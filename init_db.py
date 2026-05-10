@@ -35,7 +35,7 @@ cursor.execute('''
         )
 ''')
 
-# TODO Plus tard : Changer le end_date en supprimant le 'NOT NULL' et rajouter un truc sympa pour pas niquer le calendrier si c'est un truc à faire sans horaire de fin
+# TODO Plus tard : Rajouter des TASKS
 cursor.execute('''
     CREATE TABLE IF NOT EXISTS rendez_vous (
         id INTEGER PRIMARY KEY AUTOINCREMENT,

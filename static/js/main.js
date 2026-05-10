@@ -2,6 +2,7 @@ import { displayHabits } from "./habits.js";
 import { displayNotes } from './notes.js';
 import { displayRdv } from "./rdv.js";
 import { displayDashboard } from "./dashboard.js";
+import { loadRandomQuote } from "./quotes.js";
 
 // Date - Time 
 
@@ -69,16 +70,8 @@ const titles = {
     'rendez-vous': 'Rendez-vous'
 }
 
-//TODO : citations à retirer quand je me serai occupé de la table quotes
+// Quotes
 
-const citation = [
-    "'Without love, the truth cannot be seen'",
-    "'Suffering for your own growth is necessary'",
-    "'Man cannot remake himself without suffering, for he is both the marble and the sculptor.'"
-];
-
-const random = citation[Math.floor(Math.random() * citation.length)];
-const quoteElement = document.querySelector('#citation');
-quoteElement.textContent = random;
+await loadRandomQuote();
 
 showTab('dashboard');

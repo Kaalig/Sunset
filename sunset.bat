@@ -17,6 +17,12 @@ if %errorlevel% neq 0 (
         exit
     )
 )
+
+if not exist sunset.db (
+    echo Premiere utilisation, creation de la base de donnees...
+    python init_db.py
+)
+
 echo Lancement de Sunset...
 echo Ne pas fermer le terminal durant votre temps sur Sunset !
 start http://localhost:5000

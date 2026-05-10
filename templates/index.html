@@ -16,6 +16,19 @@
          <div class="citation center"> 
             <p id="citation"></p>
         </div>
+        <div id="modal-quotes" style="display: none;">
+        <div class="modal-content">
+            <h3>Mes citations</h3>
+                <div class="quote-add">
+                    <input type="text" id="quote-input" placeholder="Nouvelle citation...">
+                    <button id="btn-add-quote">+</button>
+                </div>
+                <div id="quotes-list"></div>
+                <div class="modal-buttons">
+                    <button id="btn-close-quotes">Fermer</button>
+                </div>
+        </div>
+</div>
         <div class="date-display center">
             <p id="date-display"></p>
         </div>
@@ -58,6 +71,11 @@
                 <h4 class="dashboard-title">Dernières notes</h4>
                 <div id="dashboard-notes-list"></div>
             </div>
+            <div class="center" style="margin-top: 10px; gap: 10px;">
+                <button id="btn-export" class="btn-backup">Exporter</button>
+                <button id="btn-import" class="btn-backup">Importer</button>
+                <input type="file" id="import-file" accept=".json" style="display: none;">
+            </div>
         </section>
         
         <section id="habits" style="display: none;">
@@ -78,7 +96,7 @@
                             <input type="number" id="habit-goal" value="7">
                             <span class="habit-goal-label">/ sem.</span>
                         </div>
-                        
+
                     <label>Description (optionnel)</label>
                     <input type="text" id="habit-description" placeholder="Description...">
                     <div class="modal-buttons">
@@ -91,8 +109,16 @@
             <div id="modal-habit-detail" style="display: none;">
                 <div class="modal-content">
                     <input type="text" id="habit-detail-name">
-                    <label>Objectif :</label>
-                    <input type="text" id="habit-detail-goal">
+                    <label>Objectif de la semaine :</label>
+                    <div class="habit-goal-row">
+                        <select id="habit-detail-type">
+                            <option value="0">Au moins</option>
+                            <option value="1">Au maximum</option>
+                        </select>
+                        <input type="number" id="habit-detail-goal">
+                        <span class="habit-goal-label">/ sem.</span>
+                    </div>
+
                     <label>Description :</label>
                     <input type="text" id="habit-detail-description">
 

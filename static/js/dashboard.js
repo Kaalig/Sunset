@@ -109,3 +109,28 @@ async function displayLastNotes() {
         container.appendChild(noteDiv);
     }
 }
+document.querySelector('#btn-export').addEventListener('click', async () => {
+    const response = await fetch('/api/export');
+    const data = await response.json();
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'sunset-backup.json';
+    a.click();
+    URL.revokeObjectURL(url);
+});
+
+document.querySelector('#btn-import').addEventListener('click', () => {
+    document.querySelector('#import-file').click();
+});
+
+document.querySelector('#import-file').addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const text = await file.text();
+    const data = JSON.parse(text);
+    await fetch('/api/import', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+    e.target.value = '';
+    await displayDashboard();
+});

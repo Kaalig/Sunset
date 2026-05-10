@@ -44,11 +44,80 @@ main {
     margin-top: 3px;
 }
 
+
+#modal-quotes {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+
+.quote-add {
+    display: flex;
+    gap: 8px;
+}
+
+.quote-input-row input {
+    flex: 1;
+}
+
+#btn-add-quote {
+    background: #6c5ce7;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+#quotes-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.quote-item {
+    background: #2a2a35;
+    border-radius: 8px;
+    padding: 12px 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.quote-item p {
+    color: #a29bfe;
+    font-style: italic;
+    font-size: 13px;
+    margin: 0;
+    flex: 1;
+}
+
+.quote-item button {
+    background: transparent;
+    border: none;
+    color: #3a3a4a;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 2px 6px;
+}
 #citation{
     color: #a29bfe;
     font-style: italic;
     font-size: 16px;
     margin-top: 5px;
+    cursor: pointer;
 }
 
 
@@ -184,11 +253,17 @@ td {
 
 tbody tr {
     border-bottom: 1px solid #2d2d3a;
-    color:#8ee2b1;
     font-weight: bold;
 }
 thead tr {
     border-bottom: 1px solid #2d2d3a;
+}
+td:nth-child(1) {
+    color: #a4e40e;
+}
+
+td:nth-child(2) {
+    color: #c5cf33;
 }
 th:nth-child(n+3):nth-child(-n+9),
 td:nth-child(n+3):nth-child(-n+9) {
@@ -265,6 +340,7 @@ td:nth-child(n+3):nth-child(-n+9) {
 #btn-back-notes,
 #btn-close-habit-detail,
 #btn-close-rdv-detail,
+#btn-close-quotes,
 #btn-rdv {
     background: transparent;
     border: 1px solid #3a3a4a;
@@ -312,6 +388,17 @@ td:nth-child(n+3):nth-child(-n+9) {
     cursor: pointer;
     border: none;
 }
+.btn-backup {
+    background: transparent;
+    border: 1px solid #2d2d3a;
+    color: #3a3a4a;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 11px;
+    cursor: pointer;
+    font-family: 'JetBrains Mono', monospace;
+}
+
 /* ----------------------- MODAL STYLE ------------------------  */
 
 #modal-habit {
@@ -415,6 +502,7 @@ td:nth-child(n+3):nth-child(-n+9) {
     display: flex;
     gap: 10px;
     align-items: center;
+    
 }
 
 #habit-goal {
@@ -427,7 +515,7 @@ td:nth-child(n+3):nth-child(-n+9) {
     font-size: 13px;
 }
 
-#habit-type {
+#habit-type, #habit-detail-type {
     background: #2a2a35;
     border: 1px solid #3a3a4a;
     border-radius: 6px;

@@ -184,7 +184,7 @@ def api_notes_id(id):
         if not note:
             conn.close()
             return jsonify({'message': 'Note non trouvé'}), 404
-        cursor.execute('UPDATE notes SET title=?, content=?, edited_at=CURRENT_TIMESTAMP WHERE id=? AND deleted_at IS NULL', (data.get('title', note['title']), data.get('content', note['content']), id))
+        cursor.execute('UPDATE notes SET title=?, content=?, edited_at=datetime("now", "localtime") WHERE id=? AND deleted_at IS NULL', (data.get('title', note['title']), data.get('content', note['content']), id))
         conn.commit()
         conn.close()
         return jsonify({'message': 'Bien mis à jour'}), 200
@@ -340,7 +340,7 @@ def api_quotes_id(id):
 
 
 # --------------- BACK UPS ------------------
-# TODO : A faire plus tard vers la fin
+
 @app.route('/api/export', methods=['GET'])
 def api_export():
     conn = sqlite3.connect('sunset.db')
@@ -377,8 +377,8 @@ def api_import():
     cursor.execute('DELETE FROM quotes')
 
     for habit in data['habits']:
-        cursor.execute('INSERT INTO habits (id, name, description, goal_days, created_at) VALUES (?, ?, ?, ?, ?)',
-            (habit['id'], habit['name'], habit['description'], habit['goal_days'], habit['created_at']))
+        cursor.execute('INSERT INTO habits (id, name, description, goal_days, is_anti, created_at) VALUES (?, ?, ?, ?, ?, ?)',
+            (habit['id'], habit['name'], habit['description'], habit['goal_days'], habit.get('is_anti', 0), habit['created_at']))
     for log in data['habits_logs']:
         cursor.execute('INSERT INTO habits_logs (id, habit_id, completed_date) VALUES (?, ?, ?)',
             (log['id'], log['habit_id'], log['completed_date']))

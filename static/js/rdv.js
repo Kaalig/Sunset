@@ -76,7 +76,10 @@ document.querySelector('#btn-next-week').addEventListener('click', async () => {
 });
 
 document.querySelector('#btn-new-rdv').addEventListener('click', () => {
-document.querySelector('#modal-rdv').style.display = 'flex';
+    const today = new Date().toISOString().split('T')[0];
+    document.querySelector('#rdv-start-date').value = today;
+    document.querySelector('#rdv-end-date').value = today;
+    document.querySelector('#modal-rdv').style.display = 'flex';
 });
 document.querySelector('#btn-cancel-rdv').addEventListener('click', () => {
 document.querySelector('#modal-rdv').style.display = 'none';

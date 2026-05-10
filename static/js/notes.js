@@ -45,7 +45,7 @@ export async function displayNotes() {
 
         const noteDate = document.createElement('span');
         noteDate.className = 'note-date';
-        noteDate.textContent= note.created_at;
+        noteDate.textContent = note.edited_at !== note.created_at ? formatDate(note.edited_at) : formatDate(note.created_at);
 
         noteRight.appendChild(noteDelete);
         noteRight.appendChild(noteDate);
@@ -92,7 +92,7 @@ export async function openNote(id) {
     document.querySelector('#note-detail').style.display = 'block';
     document.querySelector('#note-detail-title').value = note.title;
     document.querySelector('#note-detail-content').innerHTML = note.content || '';
-    document.querySelector('#note-detail-dates').textContent = `Créé le ${note.created_at} · Dernière édition ${note.edited_at}`;
+    document.querySelector('#note-detail-dates').textContent = `Créé le ${formatDate(note.created_at)} · Dernière édition le ${formatDate(note.edited_at)}`;
     document.querySelector('#btn-new-note').style.display = 'none';
     document.querySelector('#corbeille').style.display = 'none';
     currentNoteId = id;

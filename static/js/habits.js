@@ -30,7 +30,7 @@ export async function displayHabits() {
         tdName.addEventListener('click', async() => {
             await openHabit(habit.id);
         })
-        tdGoaldays.textContent = habit.goal_days + ' jours';
+        tdGoaldays.textContent = habit.goal_days + 'x  / semaine';
         tr.appendChild(tdName);
         tr.appendChild(tdGoaldays);
 
