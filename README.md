@@ -11,4 +11,4 @@ git clone https://github.com/Kaalig/Sunset.git
 
 ### Lancement
 
-Double-cliquer sur `sunset.bat` — ça crée la base de données au premier lancement et ouvre l'app dans le navigateur. Ne pas supprimer le pop-up terminal de préférence.
+Double-cliquer sur `sunset.bat` — ça crée la base de donnée au premier lancement et ouvre l'app dans le navigateur. Ne pas supprimer le pop-up terminal de préférence.
